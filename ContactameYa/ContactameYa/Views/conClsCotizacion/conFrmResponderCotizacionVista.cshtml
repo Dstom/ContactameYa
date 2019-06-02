@@ -1,0 +1,110 @@
+﻿@model ContactameYa.Models.conCTRpCotizacionRespuesta
+
+@{
+    ViewBag.Title = "conFrmResponderCotizacionVista";
+    //objeto cotizacion
+    ContactameYa.Models.conCOTpCotizacion LobjCotizacion = ViewBag.GobjCotizacion;
+}
+
+<h2>Responder Cotizacion</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Solicitante")
+        </dt>
+        <dd>
+            @LobjCotizacion.conUSUpUsuario.USUnombre @LobjCotizacion.conUSUpUsuario.USUapellido
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Titulo de Cotizacion")
+        </dt>
+
+        <dd>
+            @LobjCotizacion.COTnombre_cotizacion
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Descripcion")
+        </dt>
+
+        <dd>
+            @LobjCotizacion.COTdescripcion
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Fecha de Entrega")
+        </dt>
+
+        <dd>
+            @LobjCotizacion.COTfecha_limiteEntrega.ToString("dd/MM/yyyy")
+        </dd>
+
+    </dl>
+</div>
+
+@using (Html.BeginForm("mtdGuardarRespuestaCotizacion", "conClsCotizacion",FormMethod.Post)) 
+{   
+    @Html.HiddenFor(model=>model.COTid_cotizacion)
+    <div class="form-horizontal">
+        <h4>Respuesta a una cotizacion</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.COTid_cotizacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.COTid_cotizacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.COTid_cotizacion, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.USUid_usuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUid_usuario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.USUid_usuario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CTRdescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CTRdescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CTRdescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CTRfecha_inicio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CTRfecha_inicio, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @*@Html.EditorFor(model => model.CTRfecha_inicio, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.CTRfecha_inicio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CTRfecha_entrega, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CTRfecha_entrega, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @*@Html.EditorFor(model => model.CTRfecha_entrega, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.CTRfecha_entrega, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CTRprecio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CTRprecio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CTRprecio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Enviar Respuesta" class="btn btn-outline-danger" />
+            </div>
+        </div>
+    </div>
+}
