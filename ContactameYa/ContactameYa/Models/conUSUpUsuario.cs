@@ -99,5 +99,70 @@ namespace ContactameYa.Models
             }
             return GobjListaUsuarios;
         }
+
+        public void mtdGuardar()
+        {
+            try
+            {
+                using (var db = new conModelo())
+                {
+                    if (this.USUid_usuario > 0)
+                    {
+                        db.Entry(this).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        db.Entry(this).State = EntityState.Added;
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+
+        public ResponseModel mtdSeguridad(string xGstrUsuario, string xGstrContraseña)
+        {
+            var rm = new ResponseModel();
+            try
+            {
+                using (var db = new conModelo())
+                {
+                    var contraseñaSHA = HashHelper.SHA1(xGstrContraseña);
+
+                    var usuario = db.conUSUpUsuario
+                        .Where(x => x.USUusuario.Equals(xGstrUsuario) &&
+                                x.USUclave.Equals(contraseñaSHA)).SingleOrDefault();
+
+                    if (usuario != null)
+                    {
+                        if (usuario.USUestado.Equals("Activo"))
+                        {
+                            SessionHelper.AddUserToSession(usuario.USUid_usuario.ToString());
+                            rm.SetResponse(true);
+                        }
+                        else
+                        {
+                            rm.SetResponse(false, "Usuario desactivado, comuniquese con el administrador.");
+                        }
+                    }
+                    else
+                    {
+                        rm.SetResponse(false, "Usuario o Contraseña incorrectos.");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return rm;
+        }
+
+
     }
 }

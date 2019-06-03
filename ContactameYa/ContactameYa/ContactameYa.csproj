@@ -160,7 +160,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\conClsCotizacionController.cs" />
+    <Compile Include="Controllers\conClsSeguridadController.cs" />
     <Compile Include="Controllers\conClsServicioController.cs" />
+    <Compile Include="Filters\AdminFilters.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -177,6 +179,9 @@
     <Compile Include="Models\conSERpServicio.cs" />
     <Compile Include="Models\conTIUtTipoUsuario.cs" />
     <Compile Include="Models\conUSUpUsuario.cs" />
+    <Compile Include="Models\HashHelper.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\SessionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\conClsSeguridad\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

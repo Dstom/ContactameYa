@@ -1,40 +1,251 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    ContactameYa.Models.conUSUpUsuario LobjUsuario = new ContactameYa.Models.conUSUpUsuario();
+    ContactameYa.Models.SessionHelper.GetUser();
+
+    //CATEGORIAS DE SERVICIOS Y SERVICIOS DEL PROVEEDOR
+    List<ContactameYa.Models.conCATtCategoria> lstCategoriaServicios = ViewBag.lstCategoriaServicios;
+    List<ContactameYa.Models.conSERpServicio> lstServicios = ViewBag.lstServicios;
+
+    //LISTA DE ESTADOS
+    List<SelectListItem> lstProvincias = new List<SelectListItem>();
+    List<SelectListItem> lstDistritos = new List<SelectListItem>();
+
+    //DEPARTAMENTOS
+    List<ContactameYa.Models.conDTOtDepartamento> lstDepartamentos = ViewBag.lstDepartamentos;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <title>@ViewBag.Title </title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/estilos.css" rel="stylesheet" />
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a href="" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                         fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                         stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <strong>Contactame Ya</strong>
+                </a>
+                @using (Html.BeginForm("mtdFiltrarLocalizacion", "conClsServicio", FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    @Html.DropDownList("xGintIdDepartamento", new SelectList(lstDepartamentos, "DTOid_departamento", "DTOnombre") ,
+                   "Departamento", new { @class = "form-control mr-sm-2"})
+
+                    @Html.DropDownList("xGintIdProvincia", new SelectList(lstProvincias, "PRVid_provincia", "PRVnombre") ,
+                   "Provincia", new { @class = "form-control mr-sm-2"})
+
+                    @Html.DropDownList("xGintIdDistrito", new SelectList(lstDistritos, "DSTid_distrito", "DSTnombre") ,
+                   "Distrito", new { @class = "form-control mr-sm-2"})
+
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z" />
+                        </svg>
+                    </button>
+                }
+
+                @if (ContactameYa.Models.SessionHelper.GetUser() > 0)
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary text-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cuenta
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action active">
+                                    Cerrar Sesion
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">Mi Perfil</a>
+                                <a href="#" class="list-group-item list-group-item-action">Mis Servicios</a>
+                                <a href="#" class="list-group-item list-group-item-action">Solicitar Cotizacion</a>
+                                <a href="#" class="list-group-item list-group-item-action">Vestibulum at eros</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary text-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Ingresar
+                        </button>
+
+                        <div class="dropdown-menu">
+
+                            @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "px-4 py-3" }))
+                            {
+                                <div class="form-group">
+                                    <label for="Usuario">Usuario</label>
+                                    <input type="text" class="form-control" id="Usuario" name="Usuario" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Contraseña">Contraseña</label>
+                                    <input type="password" class="form-control" id="Contraseña" name="Contraseña" placeholder="">
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                                    <label class="form-check-label" for="dropdownCheck">
+                                        Recordarme
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                            }
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Registro de Clientes</a>
+                            <a class="dropdown-item" href="#">Desea ser un proveedor?</a>
+
+                            <a class="dropdown-item" href="#">Recuperar Contraseña</a>
+                        </div>
+                    </div>
+                }
+
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <main role="main">
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Contactame Ya</h1>
+                <p class="lead text-muted">
+                    Publica tus servicios con Nosotros
+                </p>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+
+                @RenderBody()
+
+                @*<div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                <div class="card-body">
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        </div>
+                                        <small class="text-muted">9 mins</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                <div class="card-body">
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        </div>
+                                        <small class="text-muted">9 mins</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                <div class="card-body">
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        </div>
+                                        <small class="text-muted">9 mins</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+
+    </main>
+
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="https://getbootstrap.com/docs/4.3/examples/album/#">Back to top</a>
+            </p>
+            <p>Album example is © Bootstrap, but please download and customize it for yourself!</p>
+            <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="https://getbootstrap.com/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
+        </div>
+    </footer>
+
+
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var Departamento = $("#xGintIdDepartamento");
+            var Provincia = $("#xGintIdProvincia");
+            var Distrito = $("#xGintIdDistrito");
+
+            Departamento.on("change", function () {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("mtdListarProvincias", "conClsServicio")',
+                    data: { id_departamento: $("#xGintIdDepartamento").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        Provincia.empty();
+                        Provincia.append("<option >Seleccione</option>");
+
+                        $.each(data, function () {
+                            console.log(this.PRVid_provincia);
+                            console.log(this.PRVnombre);
+                            Provincia.append("<option value='" + this.PRVid_provincia + "'>" + this.PRVnombre + "</option>");
+                        });
+                    }
+                });
+            });
+
+            Provincia.on("change", function () {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("mtdListarDistritos", "conClsServicio")',
+                    data: { id_provincia: $("#xGintIdProvincia").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        Distrito.empty();
+                        Distrito.append("<option >Seleccione</option>");
+                        $.each(data, function () {
+                            console.log(this.DSTid_distrito);
+                            console.log(this.DSTnombre);
+                            Distrito.append("<option value='" + this.DSTid_distrito + "'>" + this.DSTnombre + "</option>");
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+
 </body>
 </html>

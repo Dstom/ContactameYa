@@ -1,5 +1,4 @@
 ﻿@{
-    Layout = null;
 
     //LISTA DE ESTADOS
     List<SelectListItem> lstProvincias = new List<SelectListItem>();
@@ -9,141 +8,69 @@
     List<ContactameYa.Models.conDTOtDepartamento> lstDepartamentos = ViewBag.lstDepartamentos;
 
     //MARKERS
-
     
+    ViewBag.Title = "Filtrar Localizacion";
+
 }
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div id="map" class="z-depth-1-half map-container-5" style="height: 300px"></div>
+    </div>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/estilos.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Filtrar Localizacion</title>
-</head>
-<body>
-    <header>
-        <div class="navbar navbar-dark bg-dark shadow-sm">
-            <div class="container d-flex justify-content-between">
-                <a href="https://getbootstrap.com/docs/4.3/examples/album/#" class="navbar-brand d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                         fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                         stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                        <circle cx="12" cy="13" r="4"></circle>
-                    </svg>
-                    <strong>Contactame Ya</strong>
-                </a>
-                @using (Html.BeginForm("mtdFiltrarLocalizacion", "conClsServicio", FormMethod.Post, new { @class = "form-inline" }))
-                {
-                    @*@Html.Label("Departamento", htmlAttributes: new { @class = "mr-sm-2 text-white" })*@
-                    @Html.DropDownList("xGintIdDepartamento", new SelectList(lstDepartamentos, "DTOid_departamento", "DTOnombre") ,
-                   "Departamento", new { @class = "form-control mr-sm-2"})
-
-                    @*@Html.Label("Provincia", htmlAttributes: new { @class = "mr-sm-2 text-white" })*@
-
-                    @*@Html.DropDownList("Provincia", (SelectList)ViewBag.MyList, "Seleccione", new { @class = "form-control mr-sm-2" })*@
-
-                    @Html.DropDownList("xGintIdProvincia", new SelectList(lstProvincias, "PRVid_provincia", "PRVnombre") ,
-                   "Provincia", new { @class = "form-control mr-sm-2"})
-
-                    @*@Html.Label("Distrito", htmlAttributes: new { @class = "mr-sm-2 text-white" })*@
-                    @Html.DropDownList("xGintIdDistrito", new SelectList(lstDistritos, "DSTid_distrito", "DSTnombre") ,
-                   "Distrito", new { @class = "form-control mr-sm-2"})
-
-                    <button class="btn btn-outline-secondary" type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z" />
-                        </svg>
-                    </button>
-                }
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary text-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Ingresar
-                    </button>
-
-                    <div class="dropdown-menu">
-                        <form class="px-4 py-3">
-                            <div class="form-group">
-                                <label for="exampleDropdownFormEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleDropdownFormPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                <label class="form-check-label" for="dropdownCheck">
-                                    Remember me
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </form>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">New around here? Sign up</a>
-                        <a class="dropdown-item" href="#">Forgot password?</a>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <div class="card-body">
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary text-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Cuenta
-                    </button>
-                    <div class="dropdown-menu">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action active">
-                                Cerrar Sesion
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">Mi Perfil</a>
-                            <a href="#" class="list-group-item list-group-item-action">Mis Servicios</a>
-                            <a href="#" class="list-group-item list-group-item-action">Solicitar Cotizacion</a>
-                            <a href="#" class="list-group-item list-group-item-action">Vestibulum at eros</a>
-                        </div>
-                    </div>
+                    <small class="text-muted">9 mins</small>
                 </div>
             </div>
         </div>
-    </header>
-    <main role="main">
-
-        <div class="album py-5 bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 mb-4">
-                        @*<div id="map-container-google-8" class="z-depth-1-half map-container-5" style="height: 300px">
-                            <iframe src="https://maps.google.com/maps?q=Barcelona&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                    frameborder="0" style="border:0" allowfullscreen></iframe>
-                        </div>*@
-                        <div id="map" class="z-depth-1-half map-container-5" style="height: 300px"></div>
-
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <div class="card-body">
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
+                    <small class="text-muted">9 mins</small>
                 </div>
             </div>
         </div>
-
-    </main>
-
-
-    <footer class="text-muted">
-        <div class="container">
-            <p class="float-right">
-                <a href="https://getbootstrap.com/docs/4.3/examples/album/#">Back to top</a>
-            </p>
-            <p>Album example is © Bootstrap, but please download and customize it for yourself!</p>
-            <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="https://getbootstrap.com/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <div class="card-body">
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+</div>
 
-    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+@section scripts {
+   
 
-    <script>      
+<script>
 
         function initMap() {
-            
+
             map = new google.maps.Map(
                 document.getElementById('map'),
                 { center: new google.maps.LatLng(@ViewBag.GdecLatitud, @ViewBag.GdecLongitud), zoom: 15 });
@@ -174,15 +101,17 @@
                         infowindow.setContent(content);
                         infowindow.open(map, marker);
                     };
-                })(marker, content, infowindow)); 
+                })(marker, content, infowindow));
             };
         }
-   
-    </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj6amlfad_SCcOkynTqQ2gWgm8kXZHPzA&callback=initMap" async defer></script> 
+</script>
 
-    <script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj6amlfad_SCcOkynTqQ2gWgm8kXZHPzA&callback=initMap" async defer></script>
+
+<script>
         $(document).ready(function () {
             var Departamento = $("#Departamento");
             var Provincia = $("#Provincia");
@@ -225,7 +154,5 @@
                 });
             });
         });
-
-    </script>
-</body>
-</html>
+</script>
+}

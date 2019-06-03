@@ -81,13 +81,18 @@ namespace ContactameYa.Controllers
 
         public ActionResult mtdFiltrarLocalizacion(int xGintIdDepartamento, int xGintIdProvincia, int xGintIdDistrito)
         {
+            var idDepartamento = xGintIdDepartamento;
+            var idProvincia = xGintIdProvincia;
+            var idDistrito = xGintIdDistrito;
+
             //Listas
             ViewBag.lstCategoriaServicios = mtdListarCategoria();
             ViewBag.lstServicios = mtdCargarServicios();
             //Departamento, Provincia, Ciudad
             ViewBag.lstDepartamentos = mtdCargarDepartamentos();
             //obtenermos longitud y latidu del distrito
-            var LobjDistrito= PobjServicio.mtdObtenerLatitudLongitud(xGintIdDepartamento, xGintIdProvincia, xGintIdDistrito);          
+            //var LobjDistrito= PobjServicio.mtdObtenerLatitudLongitud(xGintIdDepartamento, xGintIdProvincia, xGintIdDistrito);
+            var LobjDistrito = PobjServicio.mtdObtenerLatitudLongitud(idDepartamento, idProvincia, idDistrito);
             var LobjMarkers = PobjUsuario.mtdListarProveedores();
             
             //Viewbag para los maracadores

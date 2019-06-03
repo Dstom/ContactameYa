@@ -1,22 +1,13 @@
 ﻿@model ContactameYa.Models.conCOTpCotizacion
 
 @{
-    Layout = null;
+//Layout = null;
 }
+<div class="row">
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
 
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/estilos.css" rel="stylesheet" />
-
-    <title>Realizar Cotizacion</title>
-</head>
-<body>
-    @using (Html.BeginForm("mtdGuardarCotizacion","conClsCotizacion",FormMethod.Post))
+    @using (Html.BeginForm("mtdGuardarCotizacion", "conClsCotizacion", FormMethod.Post))
     {
         <div class="form-horizontal">
             @Html.HiddenFor(model => model.COTid_cotizacion)
@@ -49,16 +40,16 @@
             </div>
 
             @*<div class="form-group">
-                @Html.LabelFor(model => model.COTfecha_publicacion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.COTfecha_publicacion, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.EditorFor(model => model.COTfecha_publicacion, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.LabelFor(model => model.COTfecha_publicacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.COTfecha_publicacion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.COTfecha_publicacion, new { htmlAttributes = new { @class = "form-control", type = "date" } })
 
-                    @Html.TextBox("fechainicio", dateTime, new { @class = "form-control", type = "date" })
+                        @Html.TextBox("fechainicio", dateTime, new { @class = "form-control", type = "date" })
 
-                    @Html.ValidationMessageFor(model => model.COTfecha_publicacion, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+                        @Html.ValidationMessageFor(model => model.COTfecha_publicacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.COTfecha_limiteEntrega, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -77,9 +68,6 @@
                 </div>
             </div>
         </div>
-    }   
+    }
 
-    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-</body>
-</html>
+</div>
