@@ -49,5 +49,26 @@
             }
             return LobjDistritos;
         }
+
+        public conDSTtDistrito mtdObtenerLatitudLongitud(int xGintIdDepartamento, int xGintIdProvincia, int xGintIdDistrito)
+        {
+            var LobjDistrito = new conDSTtDistrito();
+
+            try
+            {
+                using (var db = new conModelo())
+                {
+                    LobjDistrito = db.conDSTtDistrito.Where(x => x.conPRVtProvincia.DTOid_departamento == xGintIdDepartamento &&
+                    x.PRVid_provincia == xGintIdProvincia &&
+                    x.DSTid_distrito == xGintIdDistrito).SingleOrDefault();
+
+                    return LobjDistrito;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

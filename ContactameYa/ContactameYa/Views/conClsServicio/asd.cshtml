@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ContactameYa.Models.conSERpServicio>
+
+@{
+    ViewBag.Title = "asd";
+}
+
+<h2>asd</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CATid_categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.USUid_usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERnombre_servicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERdescripcion_servicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERprecio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERimagenes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERestado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CATid_categoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.USUid_usuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERnombre_servicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERdescripcion_servicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERprecio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERimagenes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERestado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SERid_servicio }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SERid_servicio }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SERid_servicio })
+        </td>
+    </tr>
+}
+
+</table>

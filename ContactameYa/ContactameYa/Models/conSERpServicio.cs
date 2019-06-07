@@ -40,13 +40,15 @@ namespace ContactameYa.Models
         [Column(TypeName = "text")]
         public string SERdescripcion_servicio { get; set; }
 
+        [Range(0.0, double.MaxValue, ErrorMessage = "El valor debe ser Mayor a 0")]
         [Display(Name = "Precio")]
         public int SERprecio { get; set; }
 
         [Display(Name = "Imagen")]
-        [StringLength(20)]
+        [StringLength(250)]
         public string SERimagenes { get; set; }
 
+        [Required]
         [Display(Name = "Estado")]
         [StringLength(20)]
         public string SERestado { get; set; }
@@ -131,26 +133,26 @@ namespace ContactameYa.Models
         //    return usuarios;
         //}
 
-        public conDSTtDistrito mtdObtenerLatitudLongitud(int xGintIdDepartamento, int xGintIdProvincia, int xGintIdDistrito)
-        {
-            var LobjDistrito = new conDSTtDistrito();
+        //public conDSTtDistrito mtdObtenerLatitudLongitud(int xGintIdDepartamento, int xGintIdProvincia, int xGintIdDistrito)
+        //{
+        //    var LobjDistrito = new conDSTtDistrito();
 
-            try
-            {
-                using (var db = new conModelo())
-                {
-                    LobjDistrito = db.conDSTtDistrito.Where(x => x.conPRVtProvincia.DTOid_departamento == xGintIdDepartamento &&
-                    x.PRVid_provincia == xGintIdProvincia &&
-                    x.DSTid_distrito == xGintIdDistrito).SingleOrDefault();
+        //    try
+        //    {
+        //        using (var db = new conModelo())
+        //        {
+        //            LobjDistrito = db.conDSTtDistrito.Where(x => x.conPRVtProvincia.DTOid_departamento == xGintIdDepartamento &&
+        //            x.PRVid_provincia == xGintIdProvincia &&
+        //            x.DSTid_distrito == xGintIdDistrito).SingleOrDefault();
 
-                    return LobjDistrito;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+        //            return LobjDistrito;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         // metodo Guardar
         public void mtdGuardar()

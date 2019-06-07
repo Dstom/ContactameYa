@@ -12,12 +12,13 @@ namespace ContactameYa.Controllers
     {
         private conCOTpCotizacion PobjCotizacion = new conCOTpCotizacion();
 
-        // GET: conClsCotizacion
-        
+        private conDTOtDepartamento PobjDepartamento = new conDTOtDepartamento();
 
+        // GET: conClsCotizacion
         //vista para crear una cotizacion
         public ActionResult conFrmRealizarCotizacionVista()
         {
+            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
             return View(new conCOTpCotizacion());
         }
         //vista ver cotizacion con respuestas
@@ -32,8 +33,9 @@ namespace ContactameYa.Controllers
         }
 
         //vista para responder una cotizacion
-        public ActionResult conFrmResponderCotizacionVista(int id ) //xGintIdCotizacion
+        public ActionResult conFrmResponderCotizacionVista(int id) //xGintIdCotizacion
         {
+            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
             conCTRpCotizacionRespuesta LobjCotizacionRespuesta = new conCTRpCotizacionRespuesta();
             //asigamos el ID cotizacion al objeto  cotizacion respuesta
             LobjCotizacionRespuesta.COTid_cotizacion = id;
@@ -85,6 +87,11 @@ namespace ContactameYa.Controllers
                 return View("conFrmRealizarCotizacionVista", PobjCotizacionModelo);
             }
             return Redirect("~/conClsCotizacion/conFrmRealizarCotizacionVista");
+        }
+
+        public object mtdCargarDepartamentos()
+        {
+            return PobjDepartamento.mtdListar();
         }
 
     }

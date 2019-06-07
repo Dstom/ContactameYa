@@ -1,0 +1,139 @@
+﻿@{
+
+    //LISTA DE ESTADOS
+    List<SelectListItem> lstProvincias = new List<SelectListItem>();
+    List<SelectListItem> lstDistritos = new List<SelectListItem>();
+
+    //DEPARTAMENTOS
+    List<ContactameYa.Models.conDTOtDepartamento> lstDepartamentos = ViewBag.lstDepartamentos;
+    List<ContactameYa.Models.conSERpServicio> lstServicios = ViewBag.lstServicios;
+
+    //MARKERS
+
+    ViewBag.Title = "Filtrar Localizacion";
+
+}
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div id="map" class="z-depth-1-half map-container-5" style="height: 300px"></div>
+    </div>
+
+    @foreach (var item in lstServicios)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                
+                <div class="card-body">
+                    <h5 class="card-title">@item.SERnombre_servicio</h5>
+                    <p class="card-text">
+                        @item.SERdescripcion_servicio
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Ver Detalle</button>
+                            @*<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>*@
+                        </div>
+                        <strong class="text-muted">S/. @item.SERprecio</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts {
+   
+
+<script>
+
+        function initMap() {
+
+            map = new google.maps.Map(
+                document.getElementById('map'),
+                { center: new google.maps.LatLng(@ViewBag.GdecLatitud, @ViewBag.GdecLongitud), zoom: 15 });
+
+            var markers = [];
+
+            @foreach(var item in (List<ContactameYa.Models.conUSUpUsuario>)ViewBag.GobjMarkers)
+            {
+                var contenServicio = "";
+                foreach(var servicios in item.conSERpServicio)
+                {
+                    contenServicio += "<a href=" + Url.Action("conFrmVerServicioVista", "conClsServicio", new { id = servicios.SERid_servicio }) + ">" + servicios.SERnombre_servicio + " </a> </br>";
+                }
+
+                @:markers.push({ position: new google.maps.LatLng(@item.USUlatitud.ToString().Replace(",","."), @item.USUlongitud.ToString().Replace(",",".")), proveedor: '@item.USUnombre @item.USUapellido', servicios: '@Html.Raw(contenServicio)'});
+            }
+            for (var i = 0; i < markers.length; i++) {
+                var marker = new google.maps.Marker({
+                    title: markers[i].proveedor,
+                    position: markers[i].position,
+                    map: map
+                });
+
+                var content = "<h6>Proveedor : " + markers[i].proveedor + '</h6>' + "Servicios: </br> " + markers[i].servicios
+                var infowindow = new google.maps.InfoWindow()
+                google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
+                    return function () {
+                        infowindow.setContent(content);
+                        infowindow.open(map, marker);
+                    };
+                })(marker, content, infowindow));
+            };
+    }
+</script>
+    
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDufFvNb18FQRVGgQ0UZw_ZA-VF0Sfm5hs&callback=initMap" async defer>
+
+   /* AIzaSyAj6amlfad_SCcOkynTqQ2gWgm8kXZHPzA */
+
+    /*AIzaSyDufFvNb18FQRVGgQ0UZw_ZA-VF0Sfm5hs */
+    </script>
+
+<script>
+        $(document).ready(function () {
+            var Departamento = $("#Departamento");
+            var Provincia = $("#Provincia");
+            var Distrito = $("#Distrito");
+
+            Departamento.on("change", function () {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("mtdListarProvincias", "conClsServicio")',
+                    data: { id_departamento: $("#Departamento").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        Provincia.empty();
+                        Provincia.append("<option >Seleccione</option>");
+
+                        $.each(data, function () {
+                            console.log(this.PRVid_provincia);
+                            console.log(this.PRVnombre);
+                            Provincia.append("<option value='" + this.PRVid_provincia + "'>" + this.PRVnombre + "</option>");
+                        });
+                    }
+                });
+            });
+
+            Provincia.on("change", function () {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("mtdListarDistritos", "conClsServicio")',
+                    data: { id_provincia: $("#Provincia").val() },
+                    dataType: "json",
+                    success: function (data) {
+                        Distrito.empty();
+                        Distrito.append("<option >Seleccione</option>");
+                        $.each(data, function () {
+                            console.log(this.DSTid_distrito);
+                            console.log(this.DSTnombre);
+                            Distrito.append("<option value='" + this.DSTid_distrito + "'>" + this.DSTnombre + "</option>");
+                        });
+                    }
+                });
+            });
+        });
+</script>
+}

@@ -23,6 +23,8 @@
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/estilos.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -39,7 +41,7 @@
                     </svg>
                     <strong>Contactame Ya</strong>
                 </a>
-                @using (Html.BeginForm("mtdFiltrarLocalizacion", "conClsServicio", FormMethod.Post, new { @class = "form-inline" }))
+                @using (Html.BeginForm("conFrmFiltrarLocalizacionVista", "conClsServicio", FormMethod.Post, new { @class = "form-inline" }))
                 {
                     @Html.DropDownList("xGintIdDepartamento", new SelectList(lstDepartamentos, "DTOid_departamento", "DTOnombre") ,
                    "Departamento", new { @class = "form-control mr-sm-2"})
@@ -129,56 +131,7 @@
 
         <div class="album py-5 bg-light">
             <div class="container">
-
-                @RenderBody()
-
-                @*<div class="row">
-                        <div class="col-md-4">
-                            <div class="card mb-4 shadow-sm">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                                <div class="card-body">
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card mb-4 shadow-sm">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                                <div class="card-body">
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card mb-4 shadow-sm">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                                <div class="card-body">
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
+                @RenderBody()                
             </div>
         </div>
 
@@ -188,16 +141,21 @@
     <footer class="text-muted">
         <div class="container">
             <p class="float-right">
-                <a href="https://getbootstrap.com/docs/4.3/examples/album/#">Back to top</a>
+                <a href="#">Arriba</a>
             </p>
-            <p>Album example is © Bootstrap, but please download and customize it for yourself!</p>
-            <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="https://getbootstrap.com/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
+            <p>ContactameYa © Publica tus servicios con nosotros y aunmenta tus ingresos!</p>
+            <p>Nuevo usuario? <a href="https://getbootstrap.com/">Registrate</a></p>
         </div>
     </footer>
 
 
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -243,9 +201,68 @@
             });
         });
 
+        var sestado = $(".estados");
+        sestado.on("change", function () {          
+
+            var estadoa = $(this).val();
+            console.log(estadoa);
+
+            var id_servicio = $(this).siblings('.id_servicio').val();
+            console.log(id_servicio);
+           
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("mtdActualizarEstado", "conClsServicio")',
+                data: { id_servicio: id_servicio, estado: estadoa },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    toastr.success("Estado Actualizado", data, { timeOut: 3000 });                    
+                }
+            });
+        });
+
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
+                "bDestroy": true,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ning?n dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Busqueda:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "?ltimo",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+        });
+
+    </script>
+
+
+
     @RenderSection("scripts", required: false)
+
+
 
 </body>
 </html>

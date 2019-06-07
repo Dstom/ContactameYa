@@ -1,9 +1,5 @@
-﻿@model ContactameYa.Models.conSERpServicio
-
+﻿@model IEnumerable<ContactameYa.Models.conSERpServicio
 @{
-    //Layout = "~/Views/Shared/_CustomMasterLayout.cshtml";
-
-    //Layout = "~/Views/_ViewStart.cshtml";
 
     //CATEGORIAS DE SERVICIOS Y SERVICIOS DEL PROVEEDOR
     List<ContactameYa.Models.conCATtCategoria> lstCategoriaServicios = ViewBag.lstCategoriaServicios;
@@ -23,126 +19,85 @@
     List<ContactameYa.Models.conDTOtDepartamento> lstDepartamentos = ViewBag.lstDepartamentos;
 
 }
-<div class="row">
-    @using (Html.BeginForm("mtdGuardar", "conClsServicio", FormMethod.Post))
-    {
-        @Html.HiddenFor(model => model.SERid_servicio)
+@using (Html.BeginForm("mtdGuardar", "conClsServicio", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.SERid_servicio)
 
-        <div class="form-horizontal">
-            <h4>Servicios</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.conCATtCategoria.CATnombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @*@Html.DropDownListFor(model => model.CATcodigo, lstCategoriaServicios, " Seleccione ", new { @class = "form-control" })*@
+    @Html.HiddenFor(model => model.SERimagenes)
 
-                    @Html.DropDownListFor(model => model.CATid_categoria,
-                new SelectList(lstCategoriaServicios, "CATid_categoria", "CATnombre"), "Porfavor Seleccione...", new { @class = "form-control" })
-                    @*@Html.EditorFor(model => model.CATcodigo, new { htmlAttributes = new { @class = "form-control" } })*@
-                    @Html.ValidationMessageFor(model => model.CATid_categoria, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    <div class="form-horizontal">
+        <h4>Servicio</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.SERnombre_servicio, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SERnombre_servicio, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SERnombre_servicio, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SERdescripcion_servicio, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SERdescripcion_servicio, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SERdescripcion_servicio, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SERprecio, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SERprecio, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SERprecio, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SERimagenes, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SERimagenes, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SERimagenes, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SERestado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-
-                    @Html.DropDownListFor(model => model.SERestado, lstEstados, " Seleccione ", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.SERestado, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-danger" />
-                </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.USUid_usuario, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUid_usuario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.USUid_usuario, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.conCATtCategoria.CATnombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERnombre_servicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERdescripcion_servicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERprecio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERimagenes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model)
-            </th>
-            <th></th>
-        </tr>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.conCATtCategoria.CATnombre, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-sm-10">
+                @*@Html.DropDownListFor(model => model.CATcodigo, lstCategoriaServicios, " Seleccione ", new { @class = "form-control" })*@
 
-        @foreach (var item in lstServicios)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.conCATtCategoria.CATnombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SERnombre_servicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SERdescripcion_servicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SERprecio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SERimagenes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SERestado)
-                </td>
-                <td>
-                    @Html.ActionLink("Modificar", "cyaFrmServicioVista", new { id = item.SERid_servicio })
-                </td>
-            </tr>
-        }
-    </table>
-</div>
-    
+                @Html.DropDownListFor(model => model.CATid_categoria,
+     new SelectList(lstCategoriaServicios, "CATid_categoria", "CATnombre"), "Porfavor Seleccione...", new { @class = "form-control" })
+                @*@Html.EditorFor(model => model.CATcodigo, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.CATid_categoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.SERnombre_servicio, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SERnombre_servicio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SERnombre_servicio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.SERdescripcion_servicio, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.SERdescripcion_servicio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SERdescripcion_servicio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.SERprecio, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.SERprecio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SERprecio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.SERimagenes, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-sm-10">
+
+                <input type="file" name="file" class="form-control" />
+                <label class="text-info">No subir archivo, si no busca modificar</label>
+                @*@Html.EditorFor(model => model.SERimagenes, new { htmlAttributes = new { @class = "form-control" } })*@
+                @*@Html.ValidationMessageFor(model => model.SERimagenes, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.SERestado, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.SERestado, lstEstados, " Seleccione ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SERestado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+}
 

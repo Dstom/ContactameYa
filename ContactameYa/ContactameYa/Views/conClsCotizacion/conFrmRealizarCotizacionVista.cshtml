@@ -3,37 +3,35 @@
 @{
 //Layout = null;
 }
-<div class="row">
 
 
 
     @using (Html.BeginForm("mtdGuardarCotizacion", "conClsCotizacion", FormMethod.Post))
     {
-        <div class="form-horizontal">
             @Html.HiddenFor(model => model.COTid_cotizacion)
 
             <h4>Realizar una Cotizacion</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.USUid_usuario, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.USUid_usuario, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+                <div class="col-sm-10">
                     @Html.EditorFor(model => model.USUid_usuario, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.USUid_usuario, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.COTnombre_cotizacion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.COTnombre_cotizacion, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+                <div class="col-sm-10">
                     @Html.EditorFor(model => model.COTnombre_cotizacion, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.COTnombre_cotizacion, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.COTdescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+            <div class="form-group row">
+                @Html.LabelFor(model => model.COTdescripcion, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+                <div class="col-sm-10">
                     @Html.EditorFor(model => model.COTdescripcion, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.COTdescripcion, "", new { @class = "text-danger" })
                 </div>
@@ -51,10 +49,9 @@
                     </div>
                 </div>*@
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.COTfecha_limiteEntrega, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-
+            <div class="form-group row">
+                @Html.LabelFor(model => model.COTfecha_limiteEntrega, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+                <div class="col-sm-10">
                     @*@Html.EditorFor(model => model.COTfecha_limiteEntrega, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.EditorFor(model => model.COTfecha_limiteEntrega, new { htmlAttributes = new { @class = "form-control", type = "date" } })
 
@@ -62,12 +59,10 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group row">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Crear Cotizacion" class="btn btn-outline-success" />
                 </div>
             </div>
-        </div>
     }
 
-</div>

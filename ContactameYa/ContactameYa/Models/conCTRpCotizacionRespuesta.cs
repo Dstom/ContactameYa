@@ -25,16 +25,20 @@ namespace ContactameYa.Models
         public int USUid_usuario { get; set; }
 
         [Required]
+        [Display(Name = "Descripcion")]
         [StringLength(150)]
         public string CTRdescripcion { get; set; }
 
+        [Display(Name = "Fecha Inicio")]
         [Column(TypeName = "date")]
         public DateTime CTRfecha_inicio { get; set; }
 
+        [Display(Name = "Fecha Entrega")]
         [Column(TypeName = "date")]
         public DateTime CTRfecha_entrega { get; set; }
 
-        [Range(0.0, double.MaxValue, ErrorMessage = "The value must be greater than 0")]
+        [Display(Name = "Precio")]
+        [Range(0.0, double.MaxValue, ErrorMessage = "El valor debe ser Mayor a 0")]
         public decimal CTRprecio { get; set; }
 
         public virtual conCOTpCotizacion conCOTpCotizacion { get; set; }
