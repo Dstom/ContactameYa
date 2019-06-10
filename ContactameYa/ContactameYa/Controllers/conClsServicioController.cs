@@ -49,21 +49,7 @@ namespace ContactameYa.Controllers
         {
             return View();
         }
-
-        //REALIZAR PEDIDO DE UN SERVICIO
-        public ActionResult conFrmPedidoVista(int id = 0) //xGintIdServicio
-        {
-
-            conPDSpPedidoServicio LobjPedidoServicio = new conPDSpPedidoServicio();
-            if( id > 0 )
-            {
-                ViewBag.GobjServicio =  PobjServicio.mtdObtener(id);
-            }
-            LobjPedidoServicio.SERid_servicio = id;
-
-
-            return View(LobjPedidoServicio);
-        }
+       
         public ActionResult mtdGuardar(conSERpServicio PobjServicioModelo, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
@@ -124,8 +110,6 @@ namespace ContactameYa.Controllers
             return PobjDepartamento.mtdListar();
         }
 
-       // public ActionResult mtdFiltrarLocalizacion(int xGintIdDepartamento, int xGintIdProvincia, int xGintIdDistrito)
-
         public ActionResult conFrmFiltrarLocalizacionVista(int xGintIdDepartamento, int xGintIdProvincia, int xGintIdDistrito)
         {
             //Listas
@@ -144,7 +128,6 @@ namespace ContactameYa.Controllers
 
             return View();
         }
-
 
         public JsonResult mtdActualizarEstado(int id_servicio, string estado)
         {
@@ -169,9 +152,6 @@ namespace ContactameYa.Controllers
             {
                 return Json("Error");
             }
-           
-
-            
         }
         public JsonResult mtdListarDistritos(int id_provincia)
         {

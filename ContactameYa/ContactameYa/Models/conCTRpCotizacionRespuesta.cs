@@ -52,6 +52,16 @@ namespace ContactameYa.Models
             {
                 yield return new ValidationResult("La fecha de entrega no puede ser menor a la fecha de inicio", new List<string> { "CTRfecha_entrega" });
             }
+            
+            //if(CTRfecha_entrega < DateTime.Now)
+            //{
+            //    yield return new ValidationResult("La fecha de entrega no puede ser menor a la fecha de publicacion", new List<string> { "CTRfecha_entrega" });
+            //}
+
+            //if (CTRfecha_inicio < DateTime.Now)
+            //{
+            //    yield return new ValidationResult("La fecha de inicio no puede ser menor a la fecha de publicacion", new List<string> { "CTRfecha_inicio" });
+            //}
         }
 
         public List<conCTRpCotizacionRespuesta> mtdListar() //retornar un collection

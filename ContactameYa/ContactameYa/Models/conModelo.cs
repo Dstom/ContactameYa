@@ -12,7 +12,6 @@ namespace ContactameYa.Models
         {
         }
 
-
         public virtual DbSet<conCALpCalificacion> conCALpCalificacion { get; set; }
         public virtual DbSet<conCATtCategoria> conCATtCategoria { get; set; }
         public virtual DbSet<conCOTpCotizacion> conCOTpCotizacion { get; set; }
@@ -216,7 +215,7 @@ namespace ContactameYa.Models
             modelBuilder.Entity<conUSUpUsuario>()
                 .HasMany(e => e.conSERpServicio)
                 .WithRequired(e => e.conUSUpUsuario)
-                .WillCascadeOnDelete(false);            
+                .WillCascadeOnDelete(false);
         }
     }    
 }

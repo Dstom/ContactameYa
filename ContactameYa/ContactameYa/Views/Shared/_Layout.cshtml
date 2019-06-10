@@ -164,64 +164,46 @@
             var Distrito = $("#xGintIdDistrito");
 
             Departamento.on("change", function () {
-                $.ajax({
-                    type: "GET",
-                    url: '@Url.Action("mtdListarProvincias", "conClsServicio")',
-                    data: { id_departamento: $("#xGintIdDepartamento").val() },
-                    dataType: "json",
-                    success: function (data) {
-                        Provincia.empty();
-                        Provincia.append("<option >Seleccione</option>");
+                if ($("#xGintIdDepartamento").val() > 0 ) {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("mtdListarProvincias", "conClsServicio")',
+                        data: { id_departamento: $("#xGintIdDepartamento").val() },
+                        dataType: "json",
+                        success: function (data) {
+                            Provincia.empty();
+                            Provincia.append("<option >Provincia</option>");
 
-                        $.each(data, function () {
-                            console.log(this.PRVid_provincia);
-                            console.log(this.PRVnombre);
-                            Provincia.append("<option value='" + this.PRVid_provincia + "'>" + this.PRVnombre + "</option>");
-                        });
-                    }
-                });
+                            $.each(data, function () {
+                                console.log(this.PRVid_provincia);
+                                console.log(this.PRVnombre);
+                                Provincia.append("<option value='" + this.PRVid_provincia + "'>" + this.PRVnombre + "</option>");
+                            });
+                        }
+                    });
+                }                
             });
 
             Provincia.on("change", function () {
-                $.ajax({
-                    type: "GET",
-                    url: '@Url.Action("mtdListarDistritos", "conClsServicio")',
-                    data: { id_provincia: $("#xGintIdProvincia").val() },
-                    dataType: "json",
-                    success: function (data) {
-                        Distrito.empty();
-                        Distrito.append("<option >Seleccione</option>");
-                        $.each(data, function () {
-                            console.log(this.DSTid_distrito);
-                            console.log(this.DSTnombre);
-                            Distrito.append("<option value='" + this.DSTid_distrito + "'>" + this.DSTnombre + "</option>");
-                        });
-                    }
-                });
+                if ($("#xGintIdProvincia").val() > 0) {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("mtdListarDistritos", "conClsServicio")',
+                        data: { id_provincia: $("#xGintIdProvincia").val() },
+                        dataType: "json",
+                        success: function (data) {
+                            Distrito.empty();
+                            Distrito.append("<option >Distrito</option>");
+                            $.each(data, function () {
+                                console.log(this.DSTid_distrito);
+                                console.log(this.DSTnombre);
+                                Distrito.append("<option value='" + this.DSTid_distrito + "'>" + this.DSTnombre + "</option>");
+                            });
+                        }
+                    });
+                }                
             });
         });
-
-        var sestado = $(".estados");
-        sestado.on("change", function () {          
-
-            var estadoa = $(this).val();
-            console.log(estadoa);
-
-            var id_servicio = $(this).siblings('.id_servicio').val();
-            console.log(id_servicio);
-           
-            $.ajax({
-                type: "GET",
-                url: '@Url.Action("mtdActualizarEstado", "conClsServicio")',
-                data: { id_servicio: id_servicio, estado: estadoa },
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    toastr.success("Estado Actualizado", data, { timeOut: 3000 });                    
-                }
-            });
-        });
-
     </script>
 
     <script>
@@ -257,8 +239,6 @@
         });
 
     </script>
-
-
 
     @RenderSection("scripts", required: false)
 

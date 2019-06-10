@@ -165,6 +165,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\conClsCotizacionController.cs" />
+    <Compile Include="Controllers\conClsPedidoServicioController.cs" />
     <Compile Include="Controllers\conClsSeguridadController.cs" />
     <Compile Include="Controllers\conClsServicioController.cs" />
     <Compile Include="Filters\AdminFilters.cs" />
@@ -197,9 +198,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\conClsCotizacion\conFrmResponderCotizacionVista.cshtml" />
-    <Content Include="Views\conClsCotizacion\DETAILSCOTIZACIONVISTA.cshtml" />
     <Content Include="Views\conClsServicio\conFrmServicioVista.cshtml" />
-    <Content Include="Views\conClsServicio\asd.cshtml" />
+    <Content Include="Views\conClsPedidoServicio\conFrmControlarPedidosVista.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

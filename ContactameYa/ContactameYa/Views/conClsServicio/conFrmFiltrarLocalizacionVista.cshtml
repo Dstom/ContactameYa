@@ -91,49 +91,4 @@
 
     /*AIzaSyDufFvNb18FQRVGgQ0UZw_ZA-VF0Sfm5hs */
     </script>
-
-<script>
-        $(document).ready(function () {
-            var Departamento = $("#Departamento");
-            var Provincia = $("#Provincia");
-            var Distrito = $("#Distrito");
-
-            Departamento.on("change", function () {
-                $.ajax({
-                    type: "GET",
-                    url: '@Url.Action("mtdListarProvincias", "conClsServicio")',
-                    data: { id_departamento: $("#Departamento").val() },
-                    dataType: "json",
-                    success: function (data) {
-                        Provincia.empty();
-                        Provincia.append("<option >Seleccione</option>");
-
-                        $.each(data, function () {
-                            console.log(this.PRVid_provincia);
-                            console.log(this.PRVnombre);
-                            Provincia.append("<option value='" + this.PRVid_provincia + "'>" + this.PRVnombre + "</option>");
-                        });
-                    }
-                });
-            });
-
-            Provincia.on("change", function () {
-                $.ajax({
-                    type: "GET",
-                    url: '@Url.Action("mtdListarDistritos", "conClsServicio")',
-                    data: { id_provincia: $("#Provincia").val() },
-                    dataType: "json",
-                    success: function (data) {
-                        Distrito.empty();
-                        Distrito.append("<option >Seleccione</option>");
-                        $.each(data, function () {
-                            console.log(this.DSTid_distrito);
-                            console.log(this.DSTnombre);
-                            Distrito.append("<option value='" + this.DSTid_distrito + "'>" + this.DSTnombre + "</option>");
-                        });
-                    }
-                });
-            });
-        });
-</script>
 }

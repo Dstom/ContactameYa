@@ -54,6 +54,7 @@ namespace ContactameYa.Controllers
             }
             else
             {
+                ViewBag.lstDepartamentos = mtdCargarDepartamentos();
                 ViewBag.GobjCotizacion = (PobjCotizacion.mtdObtener(PobjCotizacionRespuestaModelo.COTid_cotizacion));
                 return View("conFrmResponderCotizacionVista", PobjCotizacionRespuestaModelo);
             }
@@ -72,6 +73,8 @@ namespace ContactameYa.Controllers
 
                 if(PobjCotizacionModelo.COTfecha_limiteEntrega < PobjCotizacionModelo.COTfecha_publicacion)
                 {
+                    ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+
                     ModelState.AddModelError("COTfecha_limiteEntrega", "La fecha de entrega no puede ser menor a la actual");
                     return View("conFrmRealizarCotizacionVista", PobjCotizacionModelo);
                 }
@@ -79,7 +82,6 @@ namespace ContactameYa.Controllers
                 {
                     PobjCotizacionModelo.mtdGuardar();
                 }
-
             }
             else
             {              

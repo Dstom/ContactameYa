@@ -69,10 +69,10 @@
                     @*@Html.DisplayFor(modelItem => item.SERimagenes)*@
                 </td>
                 <td>
-                    @Html.HiddenFor(modelItem => item.SERid_servicio, new { @class = "id_servicio"})
-                    @Html.DropDownList(item.SERestado,new SelectList(lstEstados, "Value", "Text"), new { @class = "form-control estados" })
+                    @Html.HiddenFor(modelItem => item.SERid_servicio, new { @class = "id_servicio" })
+                    @Html.DropDownList(item.SERestado, new SelectList(lstEstados, "Value", "Text", item.SERestado), new { @class = "form-control estados" })
                     @*@Html.DropDownListFor(modelItem => item.SERestado, new SelectList(lstEstados, "Value", "Text"), new { @class = "form-control" })*@
-                    
+
 
                     @*@Html.DisplayFor(modelItem => item.SERestado)*@
                 </td>
@@ -84,3 +84,31 @@
     </tbody>
 </table>
 
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+             var sestado = $(".estados");
+        sestado.on("change", function () {          
+
+            var estadoa = $(this).val();
+            console.log(estadoa);
+
+            var id_servicio = $(this).siblings('.id_servicio').val();
+            console.log(id_servicio);
+           
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("mtdActualizarEstado", "conClsServicio")',
+                data: { id_servicio: id_servicio, estado: estadoa },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    toastr.success("Estado Actualizado", data, { timeOut: 3000 });                    
+                }
+            });
+        });
+        });
+
+    </script>
+}
