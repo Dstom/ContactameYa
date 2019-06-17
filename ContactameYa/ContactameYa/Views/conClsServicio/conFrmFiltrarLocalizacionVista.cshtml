@@ -1,11 +1,4 @@
 ﻿@{
-
-    //LISTA DE ESTADOS
-    List<SelectListItem> lstProvincias = new List<SelectListItem>();
-    List<SelectListItem> lstDistritos = new List<SelectListItem>();
-
-    //DEPARTAMENTOS
-    List<ContactameYa.Models.conDTOtDepartamento> lstDepartamentos = ViewBag.lstDepartamentos;
     List<ContactameYa.Models.conSERpServicio> lstServicios = ViewBag.lstServicios;
 
     //MARKERS
@@ -23,8 +16,8 @@
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
 
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                
+                <img class="card-img-top" src="~/Uploads/@item.SERimagenes" alt="Card image" style="width:100%">
+
                 <div class="card-body">
                     <h5 class="card-title">@item.SERnombre_servicio</h5>
                     <p class="card-text">
@@ -86,9 +79,6 @@
 </script>
     
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDufFvNb18FQRVGgQ0UZw_ZA-VF0Sfm5hs&callback=initMap" async defer>
-
-   /* AIzaSyAj6amlfad_SCcOkynTqQ2gWgm8kXZHPzA */
-
-    /*AIzaSyDufFvNb18FQRVGgQ0UZw_ZA-VF0Sfm5hs */
+  
     </script>
 }

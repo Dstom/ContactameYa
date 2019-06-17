@@ -25,29 +25,37 @@ namespace ContactameYa.Controllers
         {
             //Listas
             ViewBag.lstCategoriaServicios = mtdListarCategoria();
-            ViewBag.lstServicios = mtdCargarServicios();
             //Departamento, Provincia, Ciudad
             ViewBag.lstDepartamentos = mtdCargarDepartamentos();
 
+            conSERpServicio GobjServicio = new conSERpServicio();
+            GobjServicio.USUid_usuario = SessionHelper.GetUser();
+
             return View(
-                id == 0 ? new conSERpServicio() :
+                id == 0 ? GobjServicio :
                 PobjServicio.mtdObtener(id)
                 );
         }
-
-        public ActionResult conFrmMisServiciosVista()
+        //General
+        public ActionResult conFrmListarServiciosVista()
         {
-            //Listas
-            ViewBag.lstCategoriaServicios = mtdListarCategoria();         
-            //Departamento, Provincia, Ciudad
             ViewBag.lstDepartamentos = mtdCargarDepartamentos();
 
-            return View(mtdCargarServicios());
+            return View(PobjServicio.mtdListar());
+        }
+
+        public ActionResult conFrmMisServiciosVista()
+        {                 
+            //Departamento, Provincia, Ciudad
+            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+            //devolvemos los servicios del usuario logeado
+            return View(PobjServicio.mtdListarMisServicios(SessionHelper.GetUser()));
         }
 
         public ActionResult conFrmVerServicioVista(int id = 0)
         {
-            return View();
+            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+            return View(PobjServicio.mtdObtener(id));
         }
        
         public ActionResult mtdGuardar(conSERpServicio PobjServicioModelo, HttpPostedFileBase file)

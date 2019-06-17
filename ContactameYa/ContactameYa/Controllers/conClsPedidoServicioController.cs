@@ -45,7 +45,7 @@ namespace ContactameYa.Controllers
         {
             ViewBag.lstDepartamentos = mtdCargarDepartamentos();
 
-            return View(PobjPedidoServicio.mtdListarPedidosProveedor());
+            return View(PobjPedidoServicio.mtdListarPedidosProveedor(SessionHelper.GetUser()));
         }
 
         // VER MIS PEDIDIOS (CLIENTE)

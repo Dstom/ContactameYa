@@ -26,21 +26,22 @@
     <link href="~/Content/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    <link href="~/Content/starrr.css" rel="stylesheet" />
+
+
 </head>
 <body>
 
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
-                <a href="" class="navbar-brand d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                         fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                         stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                        <circle cx="12" cy="13" r="4"></circle>
-                    </svg>
-                    <strong>Contactame Ya</strong>
-                </a>
+
+                <a href="@Url.Action("conFrmListarServiciosVista","conClsServicio")" class="navbar-brand d-flex align-items-center">
+                    <img src="~/Imagenes/speech-bubble.svg" width="20" height="20" class="mr-2"/>             
+                    <strong>  Contactame Ya</strong>
+                </a>             
                 @using (Html.BeginForm("conFrmFiltrarLocalizacionVista", "conClsServicio", FormMethod.Post, new { @class = "form-inline" }))
                 {
                     @Html.DropDownList("xGintIdDepartamento", new SelectList(lstDepartamentos, "DTOid_departamento", "DTOnombre") ,
@@ -67,13 +68,13 @@
                         </button>
                         <div class="dropdown-menu">
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action active">
+                                <a href="@Url.Action("mtdCerrarSesion", "conClsSeguridad")" class="list-group-item list-group-item-action active">
                                     Cerrar Sesion
                                 </a>
                                 <a href="#" class="list-group-item list-group-item-action">Mi Perfil</a>
-                                <a href="#" class="list-group-item list-group-item-action">Mis Servicios</a>
-                                <a href="#" class="list-group-item list-group-item-action">Solicitar Cotizacion</a>
-                                <a href="#" class="list-group-item list-group-item-action">Vestibulum at eros</a>
+                                <a href="@Url.Action("conFrmMisServiciosVista", "conClsServicio")" class="list-group-item list-group-item-action">Mis Servicios</a>
+                                <a href="@Url.Action("conFrmRealizarCotizacionVista", "conClsCotizacion")" class="list-group-item list-group-item-action">Solicitar Cotizacion</a>
+                                <a href="@Url.Action("conFrmRealizarCotizacionVista", "conClsCotizacion")" class="list-group-item list-group-item-action">Mis Cotizaciones</a>
                             </div>
                         </div>
                     </div>
@@ -87,7 +88,7 @@
 
                         <div class="dropdown-menu">
 
-                            @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "px-4 py-3" }))
+                            @using (Html.BeginForm("mtdSeguridad", "conClsSeguridad", FormMethod.Post, new { @class = "px-4 py-3" }))
                             {
                                 <div class="form-group">
                                     <label for="Usuario">Usuario</label>
@@ -103,11 +104,11 @@
                                         Recordarme
                                     </label>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                                <button type="submit" data-ajax="true" class="btn btn-primary">Ingresar</button>
                             }
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Registro de Clientes</a>
-                            <a class="dropdown-item" href="#">Desea ser un proveedor?</a>
+                            <a class="dropdown-item" href="@Url.Action("conFrmRegistrarUsuario", "conClsSeguridad",  new { tipousuario = 3})">Registro de Clientes</a>
+                            <a class="dropdown-item" href="@Url.Action("conFrmRegistrarUsuario", "conClsSeguridad", new { tipousuario = 2})">Desea ser un proveedor?</a>
 
                             <a class="dropdown-item" href="#">Recuperar Contraseña</a>
                         </div>
@@ -120,7 +121,7 @@
 
     <main role="main">
 
-        <section class="jumbotron text-center">
+        <section class="jumbotron text-center banner">
             <div class="container">
                 <h1 class="jumbotron-heading">Contactame Ya</h1>
                 <p class="lead text-muted">
@@ -156,6 +157,15 @@
     <script src="~/Scripts/dataTables.bootstrap4.min.js"></script>
     <script src="~/Scripts/toastr.min.js"></script>
 
+
+    <!-- scripts para login -->
+
+    <script src="~/Scripts/ini.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/Scripts/starrr.js"></script>
 
     <script>
         $(document).ready(function () {

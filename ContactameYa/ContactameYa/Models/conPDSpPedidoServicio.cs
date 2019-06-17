@@ -41,7 +41,7 @@
 
         public virtual conUSUpUsuario conUSUpUsuario { get; set; }
 
-        public List<conPDSpPedidoServicio> mtdListarPedidosProveedor() // int xLintIdUsuario
+        public List<conPDSpPedidoServicio> mtdListarPedidosProveedor(int xGintIdUsuario)  
         {
             var lstPedidosServicios = new List<conPDSpPedidoServicio>();
 
@@ -53,7 +53,7 @@
                     lstPedidosServicios = db.conPDSpPedidoServicio
                         .Include("conSERpServicio")
                         .Include("conUSUpUsuario")
-                        //.Where(x=>x.conSERpServicio.USUid_usuario == xLintIdUsuario)
+                        .Where(x=>x.conSERpServicio.USUid_usuario == xGintIdUsuario)
                         .ToList();
                 }
             }

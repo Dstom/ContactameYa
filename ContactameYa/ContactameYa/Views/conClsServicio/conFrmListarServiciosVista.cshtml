@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ContactameYa.Models.conSERpServicio>
+@{
+    ViewBag.Title = "Lista de Servicios";
+}
+
+<h2>Lista de Servicios</h2>
+
+<div class="row">    
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+
+                <img class="card-img-top" src="~/Uploads/@item.SERimagenes" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h5 class="card-title">@item.SERnombre_servicio</h5>
+                    <p class="card-text">
+                        @item.SERdescripcion_servicio
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary"  href="@Url.Action("conFrmVerServicioVista","conClsServicio",new { id = item.SERid_servicio })">
+                                                        Ver Detalle</a>
+                            @*<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>*@
+                        </div>
+                        <strong class="text-muted">S/. @item.SERprecio</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

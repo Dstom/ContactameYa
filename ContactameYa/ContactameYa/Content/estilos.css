@@ -47,3 +47,9 @@ footer p {
     width: 100%;
     position: absolute;
 }
+
+.banner {
+    background-image: url('../Imagenes/slider4.jpg');
+    border-radius: 0;
+    color: #fff;
+}

@@ -29,33 +29,51 @@ namespace ContactameYa.Models
         [Key]
         public int USUid_usuario { get; set; }
 
+        [Display(Name = "Tipo de Usuario")]
         public int TIUid_tipo_usuario { get; set; }
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Usuario")]
         public string USUusuario { get; set; }
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Contraseña")]
         public string USUclave { get; set; }
 
         [Required]
         [StringLength(20)]
+        [Display(Name = "Nombres")]
         public string USUnombre { get; set; }
 
         [Required]
         [StringLength(20)]
+        [Display(Name = "Apellidos")]
         public string USUapellido { get; set; }
 
+        [Required]
         [StringLength(50)]
+        [Display(Name = "Correo Electronico")]
         public string USUemail { get; set; }
 
-        public decimal? USUlatitud { get; set; }
+        [StringLength(250)]
+        [Display(Name = "Dirección")]
+        public string USUdireccion { get; set; }
 
+        [StringLength(9)]
+        [Display(Name = "Celular")]
+        public string USUtelefono { get; set; }
+
+        [Display(Name = "Latitud")]
+        public decimal? USUlatitud { get; set; }
+    
+        [Display(Name = "Longitud")]
         public decimal? USUlongitud { get; set; }
 
         [Required]
         [StringLength(1)]
+        [Display(Name = "Estado")]
         public string USUestado { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -77,6 +95,28 @@ namespace ContactameYa.Models
         public virtual ICollection<conSERpServicio> conSERpServicio { get; set; }
 
         public virtual conTIUtTipoUsuario conTIUtTipoUsuario { get; set; }
+
+        public conUSUpUsuario mtdObtener(int xGintIdUsuario) 
+        {
+            var GobjUsuario = new conUSUpUsuario();
+            try
+            {
+                //conexion con la fuente de datos
+                using (var db = new conModelo())
+                {
+                    //INNER JOIN EN TIPO USUARIO, SERVICIOS QUE OFRECE Y QUE ESTE ACTIVO
+                    GobjUsuario = db.conUSUpUsuario                       
+                        .Include("conTIUtTipoUsuario")
+                        .Where(x=>x.USUid_usuario == xGintIdUsuario)
+                        .SingleOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return GobjUsuario;
+        }
 
         public List<conUSUpUsuario> mtdListarProveedores() //retornar un collection
         {
@@ -140,7 +180,7 @@ namespace ContactameYa.Models
 
                     if (usuario != null)
                     {
-                        if (usuario.USUestado.Equals("Activo"))
+                        if (usuario.USUestado.Equals("A"))
                         {
                             SessionHelper.AddUserToSession(usuario.USUid_usuario.ToString());
                             rm.SetResponse(true);

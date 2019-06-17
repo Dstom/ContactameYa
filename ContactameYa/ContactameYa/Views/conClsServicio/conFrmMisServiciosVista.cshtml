@@ -1,102 +1,107 @@
 ﻿@model IEnumerable<ContactameYa.Models.conSERpServicio>
 
-@{
-    //CATEGORIAS DE SERVICIOS Y SERVICIOS DEL PROVEEDOR
-    List<ContactameYa.Models.conCATtCategoria> lstCategoriaServicios = ViewBag.lstCategoriaServicios;
+@{ 
 
     //LISTA DE ESTADOS
     List<SelectListItem> lstEstados = new List<SelectListItem>();
-    List<SelectListItem> lstProvincias = new List<SelectListItem>();
-    List<SelectListItem> lstDistritos = new List<SelectListItem>();
-
-
 
     lstEstados.Add(new SelectListItem() { Text = "Activo", Value = "A" });
     lstEstados.Add(new SelectListItem() { Text = "Inactivo", Value = "I" });
 
-    //DEPARTAMENTOS
-    List<ContactameYa.Models.conDTOtDepartamento> lstDepartamentos = ViewBag.lstDepartamentos;
-
+  
 }
 
-<h1>Mis Servicios</h1> <a href="@Url.Action("conFrmServicioVista","conClsServicio")" class="btn btn-outline-danger">Crear servicio</a>
-<hr />
 
-<table id="example" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.conCATtCategoria.CATnombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERnombre_servicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERdescripcion_servicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERprecio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERimagenes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SERestado)
-            </th>
-            <th>Acciones</th>
-        </tr>
+<div class="row">
+    @Html.Partial("_LeftBar")
 
-    </thead>
+    
+    <div class="col-md-9">
+        <h3>Mis Servicios <a href="@Url.Action("conFrmServicioVista","conClsServicio")" class="btn btn-outline-danger">Crear servicio</a></h3> 
+        
+        <hr />
 
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.conCATtCategoria.CATnombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SERnombre_servicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SERdescripcion_servicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SERprecio)
-                </td>
-                <td>
-                    <img src="~/Uploads/@item.SERimagenes" height="100" width="100" alt="..." class="img-thumbnail">
-                    @*@Html.DisplayFor(modelItem => item.SERimagenes)*@
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.SERid_servicio, new { @class = "id_servicio" })
-                    @Html.DropDownList(item.SERestado, new SelectList(lstEstados, "Value", "Text", item.SERestado), new { @class = "form-control estados" })
-                    @*@Html.DropDownListFor(modelItem => item.SERestado, new SelectList(lstEstados, "Value", "Text"), new { @class = "form-control" })*@
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.conCATtCategoria.CATnombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SERnombre_servicio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SERdescripcion_servicio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SERprecio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SERimagenes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SERestado)
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.conCATtCategoria.CATnombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SERnombre_servicio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SERdescripcion_servicio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SERprecio)
+                        </td>
+                        <td>
+                            <img src="~/Uploads/@item.SERimagenes" height="100" width="100" alt="..." class="img-thumbnail">
+                            @*@Html.DisplayFor(modelItem => item.SERimagenes)*@
+                        </td>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.SERid_servicio, new { @class = "id_servicio" })
+                            @Html.DropDownList(item.SERestado, new SelectList(lstEstados, "Value", "Text", item.SERestado), new { @class = "form-control estados" })
+                            @*@Html.DropDownListFor(modelItem => item.SERestado, new SelectList(lstEstados, "Value", "Text"), new { @class = "form-control" })*@
 
 
-                    @*@Html.DisplayFor(modelItem => item.SERestado)*@
-                </td>
-                <td>
-                    @Html.ActionLink("Modificar", "conFrmServicioVista", new { id = item.SERid_servicio })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                            @*@Html.DisplayFor(modelItem => item.SERestado)*@
+                        </td>
+                        <td>
+                            @Html.ActionLink("Modificar", "conFrmServicioVista", new { id = item.SERid_servicio })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
 
 @section scripts {
     <script>
 
         $(document).ready(function () {
              var sestado = $(".estados");
-        sestado.on("change", function () {          
+        sestado.on("change", function () {
 
             var estadoa = $(this).val();
             console.log(estadoa);
 
             var id_servicio = $(this).siblings('.id_servicio').val();
             console.log(id_servicio);
-           
+
             $.ajax({
                 type: "GET",
                 url: '@Url.Action("mtdActualizarEstado", "conClsServicio")',
@@ -104,7 +109,7 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    toastr.success("Estado Actualizado", data, { timeOut: 3000 });                    
+                    toastr.success("Estado Actualizado", data, { timeOut: 3000 });
                 }
             });
         });

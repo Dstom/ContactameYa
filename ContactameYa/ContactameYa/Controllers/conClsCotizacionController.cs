@@ -18,8 +18,10 @@ namespace ContactameYa.Controllers
         //vista para crear una cotizacion
         public ActionResult conFrmRealizarCotizacionVista()
         {
+            conCOTpCotizacion GobjCotizacion = new conCOTpCotizacion();
+            GobjCotizacion.USUid_usuario = SessionHelper.GetUser();
             ViewBag.lstDepartamentos = mtdCargarDepartamentos();
-            return View(new conCOTpCotizacion());
+            return View(GobjCotizacion);
         }
         //vista ver cotizacion con respuestas
         public ActionResult conFrmVerCotizacion(int id) //xGintIdCotizacion

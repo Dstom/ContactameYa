@@ -84,6 +84,25 @@ namespace ContactameYa.Models
             return servicios;
         }
 
+        public List<conSERpServicio> mtdListarMisServicios(int xGintIdUsuario) //retornar un collection
+        {
+            var servicios = new List<conSERpServicio>();
+
+            try
+            {
+                //conexion con la fuente de datos
+                using (var db = new conModelo())
+                {
+                    servicios = db.conSERpServicio.Include("conCATtCategoria").Where(x=>x.USUid_usuario == xGintIdUsuario).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return servicios;
+        }
+
 
         //metodo Obtener
         public conSERpServicio mtdObtener(int id) //retorna un objeto
@@ -93,7 +112,10 @@ namespace ContactameYa.Models
             {
                 using (var db = new conModelo())
                 {
-                    servicio = db.conSERpServicio.Include("conCATtCategoria")
+                    servicio = db.conSERpServicio
+                        .Include("conCATtCategoria")
+                        .Include("conUSUpUsuario")
+                        .Include("conCALpCalificacion")
                                 .Where(x => x.SERid_servicio == id)
                                 .SingleOrDefault();
                 }

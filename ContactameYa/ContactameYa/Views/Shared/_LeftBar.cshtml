@@ -1,0 +1,16 @@
+﻿@using ContactameYa.Utilities;
+
+    <div class="col-md-3">
+        <div class="list-group">
+            <a class=" list-group-item list-group-item-action @Html.IsActive("conClsServicio", "conFrmMisServiciosVista")"
+               href="@Url.Action("conFrmMisServiciosVista", "conClsServicio")">Mis Servicios</a>
+            <a class="list-group-item list-group-item-action @Html.IsActive("conClsCotizacion", "")"
+               href="@Url.Action("conFrmControlarPedidosVista", "conClsPedidoServicio")">Mis Cotizaciones</a>
+            <a class="list-group-item list-group-item-action @Html.IsActive("conClsPedidoServicio", "conFrmControlarPedidosVista")"
+               href="@Url.Action("conFrmControlarPedidosVista", "conClsPedidoServicio")">Controlar Servicios</a>
+
+
+        </div>
+                     
+           
+    </div>

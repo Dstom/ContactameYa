@@ -107,8 +107,11 @@
     <Content Include="Content\dataTables.bootstrap4.min.css" />
     <Content Include="Content\estilos.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\starrr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Imagenes\slider4.jpg" />
+    <Content Include="Imagenes\speech-bubble.svg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -133,22 +136,29 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\ini.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\starrr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -188,6 +198,7 @@
     <Compile Include="Models\HashHelper.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SessionHelper.cs" />
+    <Compile Include="Utilities\Utilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +211,10 @@
     <Content Include="Views\conClsCotizacion\conFrmResponderCotizacionVista.cshtml" />
     <Content Include="Views\conClsServicio\conFrmServicioVista.cshtml" />
     <Content Include="Views\conClsPedidoServicio\conFrmControlarPedidosVista.cshtml" />
+    <Content Include="Views\conClsSeguridad\conFrmRegistrarUsuario.cshtml" />
+    <Content Include="Views\conClsServicio\conFrmListarServiciosVista.cshtml" />
+    <Content Include="Views\Shared\_LeftBar.cshtml" />
+    <Content Include="Views\conClsServicio\conFrmVerServicioVista.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -210,7 +225,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\conClsSeguridad\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

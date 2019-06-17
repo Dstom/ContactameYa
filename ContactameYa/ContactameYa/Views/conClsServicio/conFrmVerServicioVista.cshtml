@@ -1,0 +1,102 @@
+﻿@model ContactameYa.Models.conSERpServicio
+
+@{
+    ViewBag.Title = "Detalles Servicio";
+}
+<div class="container">
+
+    <h1 class="my-4">
+        Detalles Servicio
+    </h1>
+
+    <div class="row">
+
+        <div class="col-md-8">
+            <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-0">@Model.SERnombre_servicio</h3>
+            <p class="my-0">de : <a href=""> @Model.conUSUpUsuario.USUnombre @Model.conUSUpUsuario.USUapellido</a>   </p>
+            <div class='starrr'></div> 
+
+            <p>
+                @Model.SERdescripcion_servicio
+            </p>
+            <h3 class="my-3">Project Details</h3>
+            <ul>
+                <li>Lorem Ipsum</li>
+                <li>Dolor Sit Amet</li>
+                <li>Consectetur</li>
+                <li>Adipiscing Elit</li>
+            </ul>
+        </div>
+
+    </div>
+    <h3 class="my-4">Related Projects</h3>
+
+    <div class="row">
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            </a>
+        </div>
+
+    </div>
+</div>
+
+@section scripts {
+
+    @{ 
+        var rates = Model.conCALpCalificacion
+               .Where(r => r.SERid_servicio == Model.SERid_servicio)
+               .GroupBy(g => g.SERid_servicio, r => r.CALcalificacion)
+               .Select(g => new
+               {
+                   id_servicio = g.Key,
+                   PromedioCalificacion = g.Average()
+               });
+        double RatingAverage = 0;
+        if (Model.conCALpCalificacion.Count > 0 )
+        {
+            RatingAverage = Model.conCALpCalificacion.Where(r => r.SERid_servicio == Model.SERid_servicio).Average(r => r.CALcalificacion);
+        }
+
+    }
+
+    <script>
+        $(document).ready(function () {           
+
+            $('.starrr').starrr({
+                rating:  @RatingAverage,
+                readOnly: true
+            });
+            $('.starrr').after("<a href=# class=ml-2>" + @Model.conCALpCalificacion.Count + " Comentarios</span>");
+
+            $('.starrr').after("<span class=ml-2>" + @Model.conCALpCalificacion.Count + " Comentarios</span>");
+        });   
+
+       
+
+    </script>
+}
+

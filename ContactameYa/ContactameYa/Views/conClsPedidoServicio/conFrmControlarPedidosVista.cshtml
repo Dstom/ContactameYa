@@ -15,59 +15,72 @@
 
 }
 
-<h2>Controlar Servicios</h2>
+<div class="row">
 
-<table id="example" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                Id del Pedido
-            </th>
-            <th>
-                Nombre y Apellidos del Cliente
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PDSfecha_inicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PDSfecha_entrega)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PDSestado)
-            </th>
-        </tr>
+    @Html.Partial("_LeftBar")
 
-    </thead>
-  
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PDSid_pedidoServicio)
-                </td>
-                <td>
-                    @item.conUSUpUsuario.USUnombre @item.conUSUpUsuario.USUapellido
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PDSfecha_inicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PDSfecha_entrega)
-                </td>
-                <td>
-                    @Html.HiddenFor(modelItem => item.PDSid_pedidoServicio, new { @class = "id_pedidoservicio" })
-                    @Html.DropDownListFor(modelItem => item.PDSestado, new SelectList(lstEstados, "Value", "Text", item.PDSestado), new { @class = "form-control estados" })
+   
+    <div class="col-md-9">
+        <h3>Controlar Servicios</h3>
+        <hr />
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Id del Pedido
+                    </th>
+                    <th>
+                        Nombre y Apellidos del Cliente
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PDSfecha_inicio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PDSfecha_entrega)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PDSestado)
+                    </th>
+                </tr>
 
-                </td>
+            </thead>
 
-            </tr>
-        }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PDSid_pedidoServicio)
+                        </td>
+                        <td>
+                            @item.conUSUpUsuario.USUnombre @item.conUSUpUsuario.USUapellido
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PDSfecha_inicio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PDSfecha_entrega)
+                        </td>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.PDSid_pedidoServicio, new { @class = "id_pedidoservicio" })
+                            @Html.DropDownListFor(modelItem => item.PDSestado, new SelectList(lstEstados, "Value", "Text", item.PDSestado), new { @class = "form-control estados" })
 
-    </tbody>
- 
+                        </td>
 
-</table>
+                    </tr>
+                }
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
 
 @section scripts {
     <script>

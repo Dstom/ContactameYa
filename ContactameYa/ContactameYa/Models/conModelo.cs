@@ -31,11 +31,6 @@ namespace ContactameYa.Models
                 .Property(e => e.CALdescripcion_servicio)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<conCALpCalificacion>()
-                .Property(e => e.CALcalificacion)
-                .IsFixedLength()
-                .IsUnicode(false);
-
             modelBuilder.Entity<conCATtCategoria>()
                 .Property(e => e.CATnombre)
                 .IsUnicode(false);
@@ -185,6 +180,14 @@ namespace ContactameYa.Models
             modelBuilder.Entity<conUSUpUsuario>()
                 .Property(e => e.USUestado)
                 .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<conUSUpUsuario>()
+                .Property(e => e.USUdireccion)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<conUSUpUsuario>()
+                .Property(e => e.USUtelefono)
                 .IsUnicode(false);
 
             modelBuilder.Entity<conUSUpUsuario>()

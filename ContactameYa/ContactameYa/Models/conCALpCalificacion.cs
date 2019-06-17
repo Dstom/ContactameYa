@@ -20,8 +20,8 @@ namespace ContactameYa.Models
         public string CALdescripcion_servicio { get; set; }
 
         [Required]
-        [StringLength(1)]
-        public string CALcalificacion { get; set; }
+        
+        public int CALcalificacion { get; set; }
 
         public virtual conUSUpUsuario conUSUpUsuario { get; set; }
 
