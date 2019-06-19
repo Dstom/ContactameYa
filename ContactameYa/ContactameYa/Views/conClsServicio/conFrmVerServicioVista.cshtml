@@ -2,6 +2,24 @@
 
 @{
     ViewBag.Title = "Detalles Servicio";
+
+    int[] estrellas_cal = new int[] { 5, 4, 3, 2, 1 };
+
+    var calficaciones = Model.conCALpCalificacion
+               .Where(r => r.SERid_servicio == Model.SERid_servicio)
+               .OrderByDescending(g => g.CALcalificacion)
+               .GroupBy(g => g.CALcalificacion)
+               .Select(g => new
+               {
+                   cal_number = g.Key,
+                   cal_count = g.Count()
+               });
+
+    double RatingAverage = 0;
+    if (Model.conCALpCalificacion.Count > 0)
+    {
+        RatingAverage = Model.conCALpCalificacion.Where(r => r.SERid_servicio == Model.SERid_servicio).Average(r => r.CALcalificacion);
+    }
 }
 <div class="container">
 
@@ -18,7 +36,10 @@
         <div class="col-md-4">
             <h3 class="my-0">@Model.SERnombre_servicio</h3>
             <p class="my-0">de : <a href=""> @Model.conUSUpUsuario.USUnombre @Model.conUSUpUsuario.USUapellido</a>   </p>
-            <div class='starrr'></div> 
+            <div class='starrr'></div>
+          
+            <!-- modal a href-->
+            <a href=# data-toggle=modal data-target=#exampleModalCenter>@Model.conCALpCalificacion.Count Comentarios</a>
 
             <p>
                 @Model.SERdescripcion_servicio
@@ -33,6 +54,25 @@
         </div>
 
     </div>
+    <p>Ultimas Preguntas</p>
+
+    <div class="row">
+        @if (Model.conCALpCalificacion.Count > 0)
+        {
+            foreach (var i in Model.conCALpCalificacion)
+            {
+                @Html.Partial("_Calificacion", i)
+            }
+        }
+        else
+        {
+            <div>
+                <p>Este Servicio no cuenta con preguntas</p>
+            </div>
+        }
+
+    </div>
+
     <h3 class="my-4">Related Projects</h3>
 
     <div class="row">
@@ -62,41 +102,88 @@
         </div>
 
     </div>
-</div>
+
+
+    <!-- Modal para las calificaciones de los usuarios -->
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Opiniones sobre el Servicio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <h1>4.9</h1>
+                            <div class="star_modal starrr"></div>
+                            <br />
+                            <span>Promedio entre @Model.conCALpCalificacion.Count opiniones</span>
+                        </div>
+                        <div class="col-6">
+
+                            @for (int i = 0; i < estrellas_cal.Length; i++)
+                            {
+                                <div>
+                                    <span class="text-muted">@estrellas_cal[i] Estrellas</span>
+                                    <span class="text-muted float-right">@calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault()</span>
+
+                                    <div class="progress md-progress" style="height: 4px;">
+                                        <div class="progress-bar" style="width: @(calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault()/100)%"></div>
+                                    </div>
+
+                                </div>
+
+
+                            }
+                        </div>
+                    </div>
+                    @if (Model.conCALpCalificacion.Count > 0)
+                    {
+                        foreach (var i in Model.conCALpCalificacion)
+                        {
+                            @Html.Partial("_Calificacion", i)
+                        }
+                    }
+                    else {
+                        <div>
+                            <p>Este Servicio no cuenta con opiniones</p>
+                        </div>
+                    }
+
+
+                </div>
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
 
 @section scripts {
-
-    @{ 
-        var rates = Model.conCALpCalificacion
-               .Where(r => r.SERid_servicio == Model.SERid_servicio)
-               .GroupBy(g => g.SERid_servicio, r => r.CALcalificacion)
-               .Select(g => new
-               {
-                   id_servicio = g.Key,
-                   PromedioCalificacion = g.Average()
-               });
-        double RatingAverage = 0;
-        if (Model.conCALpCalificacion.Count > 0 )
-        {
-            RatingAverage = Model.conCALpCalificacion.Where(r => r.SERid_servicio == Model.SERid_servicio).Average(r => r.CALcalificacion);
-        }
-
-    }
-
+   
     <script>
         $(document).ready(function () {           
+            $('.star_modal').starrr({
+                rating:  @RatingAverage,
+                readOnly: true
+            });
 
             $('.starrr').starrr({
                 rating:  @RatingAverage,
                 readOnly: true
             });
-            $('.starrr').after("<a href=# class=ml-2>" + @Model.conCALpCalificacion.Count + " Comentarios</span>");
 
-            $('.starrr').after("<span class=ml-2>" + @Model.conCALpCalificacion.Count + " Comentarios</span>");
-        });   
+            $(".starrrr").starrr({
+                rating: 4,
+                readOnly:true
+            });
 
-       
-
+        }); 
     </script>
 }
 

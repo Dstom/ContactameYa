@@ -1,0 +1,31 @@
+﻿@using HtmlHelpers.BeginCollectionItem
+@model ContactameYa.Models.conCALpCalificacion
+@{
+    //ViewBag.Title = "_Calificacion";
+}
+
+<article>
+    @using (Html.BeginCollectionItem("conCALpCalificacion"))
+    {
+        @Html.HiddenFor(m => m.CALid_calificacion)
+        @Html.HiddenFor(m => m.USUid_usuario)
+
+        <div class='estrellitas'>
+            @for (int i = 0; i < Model.CALcalificacion; i++)
+            {
+                <a href="#" class="fa fa-star"></a>
+            }
+
+            @for (int i = 0; i < 5 - Model.CALcalificacion; i++)
+            {
+                <a href="#" class="fa fa-star-o"></a>
+            }
+
+        </div>
+        <p>
+            @Model.CALdescripcion_servicio
+        </p>
+    }
+</article>
+
+
