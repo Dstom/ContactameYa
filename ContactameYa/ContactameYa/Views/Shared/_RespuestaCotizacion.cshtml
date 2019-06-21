@@ -1,0 +1,24 @@
+﻿@using HtmlHelpers.BeginCollectionItem
+
+@model ContactameYa.Models.conCTRpCotizacionRespuesta
+@{
+
+}
+
+@using (Html.BeginCollectionItem("conCTRpCotizacionRespuesta"))
+{
+<div class="col-md-6">
+    <div class="card bg-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Cotizacion por: @Model.conUSUpUsuario.USUnombre @Model.conUSUpUsuario.USUapellido</h5>
+            <p class="card-text">Descripcion: @Model.CTRdescripcion</p>
+            <p class="font-weight-bold small text-muted">Fecha de Inicio: <span class="text-danger">@Model.CTRfecha_inicio.ToString("d MMMM, yyyy") </span> </p>
+            <p class="font-weight-bold small text-muted">Fecha de Entrega: <span class="text-danger">@Model.CTRfecha_entrega.ToString("d MMMM, yyyy") </span> </p>
+        </div>
+    </div>
+</div>
+    
+}
+
+
+

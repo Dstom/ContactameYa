@@ -223,6 +223,9 @@
     <Content Include="Views\conClsCotizacion\conFrmMisCotizacionesVista.cshtml" />
     <Content Include="Views\conClsCotizacion\conFrmCotizacionesVista.cshtml" />
     <Content Include="Views\conClsCotizacion\conFrmVerCotizacion.cshtml" />
+    <Content Include="Views\Shared\_RespuestaCotizacion.cshtml" />
+    <Content Include="Views\conClsPedidoServicio\conFrmListaPedidosPendiente.cshtml" />
+    <Content Include="Views\conClsPedidoServicio\conFrmDejarCalificacion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

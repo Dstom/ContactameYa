@@ -1,0 +1,95 @@
+﻿@model ContactameYa.Models.conCALpCalificacion
+@{
+    ViewBag.Title = "Dejar Calificacion";
+
+    ContactameYa.Models.conPDSpPedidoServicio LobjPedidoServicio = ViewBag.GobjPedidoServicio;
+
+    int LintIdPedidoServicio = ViewBag.GintIdPedidoServicio;
+}
+
+<h2></h2>
+
+
+<div class="contenedor">
+    <p>
+        <h3>Información del Pedido</h3>
+    </p>
+
+    <p>
+        <span class="text-muted mr-3">
+            N° pedido: <a href="#"> @LobjPedidoServicio.PDSid_pedidoServicio  </a>
+        </span>
+
+        <span class="text-muted mr-3">
+            Fecha inicio: <span class="font-weight-bold">@LobjPedidoServicio.PDSfecha_inicio.ToString("d MMMM, yyyy")</span>
+        </span>
+        <span class="text-muted mr-3">
+            Fecha Entrega: <span class="font-weight-bold"> @LobjPedidoServicio.PDSfecha_entrega.ToString("d MMMM, yyyy")</span>
+        </span>
+
+        <span class="text-muted">
+            Proveedor: <a href="#">@LobjPedidoServicio.conSERpServicio.conUSUpUsuario.USUnombre @LobjPedidoServicio.conSERpServicio.conUSUpUsuario.USUapellido</a>
+        </span>
+
+    </p>
+
+</div>
+
+@using (Html.BeginForm("mtdGuardarCalificacion", "conClsPedidoServicio", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.CALid_calificacion)
+    @Html.HiddenFor(model => model.USUid_usuario)
+    @Html.HiddenFor(model => model.SERid_servicio)
+
+    @Html.HiddenFor(model => model.CALcalificacion)
+
+    @Html.Hidden("GintIdPedidoServicio", LintIdPedidoServicio)
+
+
+    <div class="contenedor">
+        <h3>Dejar Calificacion de este Servicio</h3>
+        <div class="my-3">
+            <img src="~/Uploads/@LobjPedidoServicio.conSERpServicio.SERimagenes" class="img-thumbnail" width="60" height="60" />
+
+            <a href="@Url.Action("conFrmVerServicioVista", "conClsServicio", new { id = LobjPedidoServicio.SERid_servicio })">@LobjPedidoServicio.conSERpServicio.SERnombre_servicio</a>
+        </div>
+
+
+        <div class='starrr'></div>
+
+
+        <div class="form-group">
+            @Html.TextAreaFor(model => model.CALdescripcion_servicio, 8, 100, null);
+
+        </div>
+
+
+        <input type="submit" value="Dejar Calificación" class="btn btn-warning" />
+    </div>
+
+
+}
+
+
+@section scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('.starrr').starrr({
+                rating: 0
+            });
+        });
+        $('.starrr').starrr({
+            change: function (e, value) {
+                alert('new rating is ' + value);
+                $("#CALcalificacion").val(value);
+                $("#CALdescripcion_servicio").focus();
+
+            }
+        });
+    </script>
+}
+
+
+
+
