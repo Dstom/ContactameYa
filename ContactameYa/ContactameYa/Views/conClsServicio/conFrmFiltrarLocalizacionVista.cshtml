@@ -54,10 +54,7 @@
                 var contenServicio = "";
                 foreach(var servicios in item.conSERpServicio)
                 {
-                    if(servicios.SERestado.Equals("A"))
-                    {
-                        contenServicio += "<a href=" + Url.Action("conFrmVerServicioVista", "conClsServicio", new { id = servicios.SERid_servicio }) + ">" + servicios.SERnombre_servicio + " </a> </br>";
-                    }
+                    contenServicio += "<a href=" + Url.Action("conFrmVerServicioVista", "conClsServicio", new { id = servicios.SERid_servicio }) + ">" + servicios.SERnombre_servicio + " </a> </br>";
                 }
 
                 @:markers.push({ position: new google.maps.LatLng(@item.USUlatitud.ToString().Replace(",","."), @item.USUlongitud.ToString().Replace(",",".")), proveedor: '@item.USUnombre @item.USUapellido', servicios: '@Html.Raw(contenServicio)'});

@@ -4,37 +4,5 @@
 }
 
 <h2>Cotizaciones - Respuestas</h2>
-<hr />
-<h2 class="text-danger">@Model.COTnombre_cotizacion</h2>
-
-<h6 class="text-muted">
-    <span>
-        <i class="fa fa-calendar-o"></i>
-    </span>
-
-
-    publicado por: @Model.conUSUpUsuario.USUnombre @Model.conUSUpUsuario.USUapellido, @Model.COTfecha_publicacion.ToString("d MMMM, yyyy")
-</h6>
-<h5>Fecha Limite de Entrega: <span class="text-danger small">@Model.COTfecha_limiteEntrega.ToString("d MMMM, yyyy")</span></h5>
-
-<p>@Model.COTdescripcion</p>
-
-
-
-@if (Model.conCTRpCotizacionRespuesta.Count > 0)
-{
-    <div class="row">
-
-        @foreach (var respuesta in Model.conCTRpCotizacionRespuesta)
-        {
-        @Html.Partial("_RespuestaCotizacion", respuesta)
-        }
-    </div>
-}
-else
-{
-    <p class="text-danger">Esta cotizacion no cuenta con Respuestas</p>
-}
-
 
 

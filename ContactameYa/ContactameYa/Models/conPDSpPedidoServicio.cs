@@ -41,30 +41,6 @@
 
         public virtual conUSUpUsuario conUSUpUsuario { get; set; }
 
-        public List<conPDSpPedidoServicio> mtdListarPedidosPendienteCalificacion(int xGintIdUsuario)
-        {
-            var pedidos = new List<conPDSpPedidoServicio>();
-
-            try
-            {
-                //conexion con la fuente de datos
-                using (var db = new conModelo())
-                {
-                    pedidos = db.conPDSpPedidoServicio
-                        .Include("conSERpServicio.conUSUpUsuario")
-                        .Include("conSERpServicio.conCALpCalificacion")
-                        .Where(x => x.USUid_usuario == xGintIdUsuario &&
-                        x.conSERpServicio.conCALpCalificacion.Count == 0 &&
-                        x.PDSestado.Equals("T")).ToList(); //x.PDSestado.Equals("T") &&
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return pedidos;
-        }
-
         public List<conPDSpPedidoServicio> mtdListarPedidosProveedor(int xGintIdUsuario)  
         {
             var lstPedidosServicios = new List<conPDSpPedidoServicio>();
@@ -88,7 +64,7 @@
             return lstPedidosServicios;
         }
 
-        public List<conPDSpPedidoServicio> mtdListarPedidosCliente(int xGintIdUsuario) // 
+        public List<conPDSpPedidoServicio> mtdListarPedidosCliente() // int xLintIdUsuario
         {
             var lstPedidosServicios = new List<conPDSpPedidoServicio>();
 
@@ -100,7 +76,7 @@
                     lstPedidosServicios = db.conPDSpPedidoServicio
                         .Include("conSERpServicio")
                         .Include("conUSUpUsuario")
-                        .Where(x=>x.USUid_usuario == xGintIdUsuario)
+                        //.Where(USUid_usuario == xLintIdUsuario)
                         .ToList();
                 }
             }
@@ -120,7 +96,7 @@
                 using (var db = new conModelo())
                 {
                     LobjPedidoServicio = db.conPDSpPedidoServicio
-                        .Include("conSERpServicio.conUSUpUsuario")
+                        .Include("conSERpServicio")
                         .Include("conUSUpUsuario")
                                 .Where(x => x.PDSid_pedidoServicio == xGintIdPedidoServicio)
                                 .SingleOrDefault();

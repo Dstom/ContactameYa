@@ -20,64 +20,11 @@ namespace ContactameYa.Controllers
 
         private conDTOtDepartamento PobjDepartamento = new conDTOtDepartamento();
 
-        private conCALpCalificacion PobjCalificacion = new conCALpCalificacion();
-
 
         public ActionResult conFrmPedidoResumenVista()
         {
             return View();
         }
-
-        //Lista de Pedidos pendientes de Calificacion
-        public ActionResult conFrmListaPedidosPendiente()
-        {
-            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
-
-            return View(PobjPedidoServicio.mtdListarPedidosPendienteCalificacion(SessionHelper.GetUser()));
-        }
-
-
-        //dejar calificacion del servicio
-        public ActionResult conFrmDejarCalificacion(int id) //xGintIdPedidoServicio
-        {
-            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
-
-            conCALpCalificacion LobjCalificacion = new conCALpCalificacion();
-            conPDSpPedidoServicio LobjPedidoServicio = new conPDSpPedidoServicio();
-
-            LobjPedidoServicio = PobjPedidoServicio.mtdObtener(id);
-            LobjCalificacion.SERid_servicio = LobjPedidoServicio.SERid_servicio;
-            LobjCalificacion.USUid_usuario = SessionHelper.GetUser();
-
-            ViewBag.GobjPedidoServicio = LobjPedidoServicio;
-            //id pedido serviocio
-            ViewBag.GintIdPedidoServicio = id;
-
-            return View(LobjCalificacion);
-        }
-
-        //guardar calificacion
-        public ActionResult mtdGuardarCalificacion(conCALpCalificacion xGobjCalificacion)
-        {
-            if (ModelState.IsValid)
-            {
-                xGobjCalificacion.mtdGuardar();
-            }
-            else
-            {
-                
-                conPDSpPedidoServicio LobjPedidoServicio = new conPDSpPedidoServicio();
-                LobjPedidoServicio = PobjPedidoServicio.mtdObtener(int.Parse(Request.Form["GintIdPedidoServicio"]));
-
-                ViewBag.GobjPedidoServicio = LobjPedidoServicio;
-                ViewBag.lstDepartamentos = mtdCargarDepartamentos();
-                ViewBag.GintIdPedidoServicio = int.Parse(Request.Form["GintIdPedidoServicio"]);
-
-                return View("conFrmDejarCalificacion", xGobjCalificacion);
-            }
-            return Redirect("~/conClsPedidoServicio/conFrmListaPedidosPendiente");
-        }
-
 
         //vista de un pedido
         public ActionResult conFrmPedidoVista(int id = 0) //xGintIdServicio
@@ -103,10 +50,8 @@ namespace ContactameYa.Controllers
 
         // VER MIS PEDIDIOS (CLIENTE)
         public ActionResult conFrmMisPedidosVista()
-        {
-            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
-
-            return View(PobjPedidoServicio.mtdListarPedidosCliente(SessionHelper.GetUser()));
+        {            
+            return View();
         }
 
 

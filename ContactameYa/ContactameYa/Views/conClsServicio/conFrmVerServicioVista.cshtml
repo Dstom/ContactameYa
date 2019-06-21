@@ -5,7 +5,8 @@
 
     int[] estrellas_cal = new int[] { 5, 4, 3, 2, 1 };
 
-    var calficaciones = Model.conCALpCalificacion               
+    var calficaciones = Model.conCALpCalificacion
+               .Where(r => r.SERid_servicio == Model.SERid_servicio)
                .OrderByDescending(g => g.CALcalificacion)
                .GroupBy(g => g.CALcalificacion)
                .Select(g => new
@@ -17,9 +18,10 @@
     double RatingAverage = 0;
     if (Model.conCALpCalificacion.Count > 0)
     {
-        RatingAverage = Model.conCALpCalificacion.Average(r => r.CALcalificacion);
+        RatingAverage = Model.conCALpCalificacion.Where(r => r.SERid_servicio == Model.SERid_servicio).Average(r => r.CALcalificacion);
     }
 }
+<div class="container">
 
     <h1 class="my-4">
         Detalles Servicio
@@ -116,7 +118,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6 text-center">
-                            <h1>@RatingAverage.ToString().Replace(",", ".")</h1>
+                            <h1>4.9</h1>
                             <div class="star_modal starrr"></div>
                             <br />
                             <span>Promedio entre @Model.conCALpCalificacion.Count opiniones</span>
@@ -125,15 +127,17 @@
 
                             @for (int i = 0; i < estrellas_cal.Length; i++)
                             {
-                            <div>
-                                <span class="text-muted">@estrellas_cal[i] Estrellas</span>
-                                <span class="text-muted float-right">@calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault()</span>
+                                <div>
+                                    <span class="text-muted">@estrellas_cal[i] Estrellas</span>
+                                    <span class="text-muted float-right">@calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault()</span>
 
+                                    <div class="progress md-progress" style="height: 4px;">
+                                        <div class="progress-bar" style="width: @(calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault()/100)%"></div>
+                                    </div>
 
-                                <div class="progress md-progress" style="height: 4px;">
-                                    <div class="progress-bar" style="width:@(Math.Round( (Decimal) calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault() / (Decimal)calficaciones.Count() * 100,0))% "></div>
                                 </div>
-                            </div>
+
+
                             }
                         </div>
                     </div>
@@ -152,6 +156,10 @@
 
 
                 </div>
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
             </div>
         </div>
     </div>
@@ -161,14 +169,20 @@
     <script>
         $(document).ready(function () {           
             $('.star_modal').starrr({
-                rating:  @RatingAverage.ToString().Replace(",","."),
+                rating:  @RatingAverage,
                 readOnly: true
             });
 
             $('.starrr').starrr({
-                rating:  @RatingAverage.ToString().Replace(",", "."),
+                rating:  @RatingAverage,
                 readOnly: true
-            });           
+            });
+
+            $(".starrrr").starrr({
+                rating: 4,
+                readOnly:true
+            });
+
         }); 
     </script>
 }
