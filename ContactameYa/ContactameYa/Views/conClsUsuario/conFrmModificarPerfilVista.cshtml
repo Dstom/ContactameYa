@@ -1,21 +1,18 @@
 ﻿@model ContactameYa.Models.conUSUpUsuario
 @{
-    ViewBag.Title = "Registro de Usuarios";
+    ViewBag.Title = "Modificar Perfil";
 }
-@using (Html.BeginForm("mtdRegistrarUsuario", "conClsSeguridad", FormMethod.Post, new { @id="frmRegistrarUsuario", @name="frmRegistrarUsuario"}))
+@using (Html.BeginForm("mtdGuardarPerfil", "conClsUsuario", FormMethod.Post, new { @id = "frmGuardarPerfil", @name = "frmGuardarPerfil" }))
 {
     <div class="row">
         <div class="col-md-6">
-            <h4>Completa tus Datos</h4>
+            <h4>Modificar Perfil</h4>
             <hr />
             @Html.HiddenFor(model => model.USUid_usuario)
             @Html.HiddenFor(model => model.TIUid_tipo_usuario)
             @Html.HiddenFor(model => model.USUestado)
-
             @Html.HiddenFor(model => model.USUlatitud)
             @Html.HiddenFor(model => model.USUlongitud)
-
-
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -30,7 +27,8 @@
             <div class="form-group row">
                 @Html.LabelFor(model => model.USUclave, htmlAttributes: new { @class = "col-form-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.USUclave, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    <input type="password" class="form-control" id="USUclave" name="USUclave" value="" required />
+                    @*@Html.EditorFor(model => model.USUclave, new { htmlAttributes = new { @class = "form-control", @type = "password" } })*@
                     @Html.ValidationMessageFor(model => model.USUclave, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -50,7 +48,6 @@
                     @Html.ValidationMessageFor(model => model.USUapellido, "", new { @class = "text-danger" })
                 </div>
             </div>
-
             <div class="form-group row">
                 @Html.LabelFor(model => model.USUtelefono, htmlAttributes: new { @class = "col-form-label col-md-2" })
                 <div class="col-md-10">
@@ -66,18 +63,18 @@
                     @Html.ValidationMessageFor(model => model.USUemail, "", new { @class = "text-danger" })
                 </div>
             </div>
+
             <div class="form-group row">
                 <div class="col-md-offset-2 col-md-10">
                     @*<input type="submit" value="Registrarse" class="btn btn-outline-success" />*@
-                    <a href="javascript:void(0)" value="Registrarse" class="btn btn-outline-success" onclick="EnviarFormulario();">Registrarse</a>
+                    <a href="javascript:void(0)" value="Guardar" class="btn btn-outline-success" onclick="EnviarFormulario();">Guardar</a>
                 </div>
             </div>
         </div>
-
         @if (Model.TIUid_tipo_usuario == 2)
         {
             <div class="col-md-6">
-                <h4>Selecciona tu Dirección</h4>
+                <h4>Cambiar Dirección</h4>
                 <hr />
                 <div class="form-group row">
                     @Html.LabelFor(model => model.USUdireccion, htmlAttributes: new { @class = "col-form-label col-md-2" })
@@ -95,37 +92,37 @@
 @section scripts {
     <script>
         function EnviarFormulario() {
-            var x = document.forms["frmRegistrarUsuario"]["USUusuario"].value;
+            var x = document.forms["frmGuardarPerfil"]["USUusuario"].value;
             if (x == "") {
                 alert("Usuario must be filled out");
                 return false;
             }
-            var x = document.forms["frmRegistrarUsuario"]["USUclave"].value;
+            var x = document.forms["frmGuardarPerfil"]["USUclave"].value;
             if (x == "") {
                 alert("Clave must be filled out");
                 return false;
             }
-            var x = document.forms["frmRegistrarUsuario"]["USUnombre"].value;
+            var x = document.forms["frmGuardarPerfil"]["USUnombre"].value;
             if (x == "") {
                 alert("Nombre must be filled out");
                 return false;
             }
-            var x = document.forms["frmRegistrarUsuario"]["USUapellido"].value;
+            var x = document.forms["frmGuardarPerfil"]["USUapellido"].value;
             if (x == "") {
                 alert("Apellido must be filled out");
                 return false;
             }
-            var x = document.forms["frmRegistrarUsuario"]["USUtelefono"].value;
+            var x = document.forms["frmGuardarPerfil"]["USUtelefono"].value;
             if (x == "") {
                 alert("Telefono must be filled out");
                 return false;
             }
-            var x = document.forms["frmRegistrarUsuario"]["USUemail"].value;
+            var x = document.forms["frmGuardarPerfil"]["USUemail"].value;
             if (x == "" || !x.includes('@@')) {
                 alert("Correo must be filled out");
                 return false;
             }
-            document.getElementById("frmRegistrarUsuario").submit();
+            document.getElementById("frmGuardarPerfil").submit();
         };
         function initMap() {
 
@@ -182,7 +179,7 @@
                 var latitude = marker.position.lat();
                 var longitude = marker.position.lng();
 
-                $("#USUlatitud").val((latitude.toFixed(9)).replace(".",","));
+                $("#USUlatitud").val((latitude.toFixed(9)).replace(".", ","));
                 $("#USUlongitud").val(longitude.toFixed(9).replace(".", ","));
 
 

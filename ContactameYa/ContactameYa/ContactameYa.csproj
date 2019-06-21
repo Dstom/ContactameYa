@@ -181,6 +181,7 @@
     <Compile Include="Controllers\conClsPedidoServicioController.cs" />
     <Compile Include="Controllers\conClsSeguridadController.cs" />
     <Compile Include="Controllers\conClsServicioController.cs" />
+    <Compile Include="Controllers\conClsUsuarioController.cs" />
     <Compile Include="Filters\AdminFilters.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -223,6 +224,7 @@
     <Content Include="Views\conClsCotizacion\conFrmMisCotizacionesVista.cshtml" />
     <Content Include="Views\conClsCotizacion\conFrmCotizacionesVista.cshtml" />
     <Content Include="Views\conClsCotizacion\conFrmVerCotizacion.cshtml" />
+    <Content Include="Views\conClsUsuario\conFrmModificarPerfilVista.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

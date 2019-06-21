@@ -65,7 +65,7 @@
                     return LobjDistrito;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
