@@ -53,3 +53,9 @@ footer p {
     border-radius: 0;
     color: #fff;
 }
+
+.contenedor {
+    border: 1px solid #e8e8e8;
+    background-color: #fff;
+    padding: 15px;
+}
