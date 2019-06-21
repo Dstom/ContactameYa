@@ -90,10 +90,6 @@ namespace ContactameYa.Models
                 .Property(e => e.FOPrespuesta)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<conFOPpForoPreguntas>()
-                .Property(e => e.FOPhora_repsuesta)
-                .IsUnicode(false);
-
             modelBuilder.Entity<conPDSpPedidoServicio>()
                 .Property(e => e.PDSestado)
                 .IsFixedLength()

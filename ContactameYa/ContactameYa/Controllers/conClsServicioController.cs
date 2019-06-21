@@ -19,6 +19,7 @@ namespace ContactameYa.Controllers
         private conDSTtDistrito PobjDistrito = new conDSTtDistrito();
         private conUSUpUsuario PobjUsuario = new conUSUpUsuario();
 
+        private conFOPpForoPreguntas PobjForoPreguntas = new conFOPpForoPreguntas();
 
         // GET: conClsServicio
         public ActionResult conFrmServicioVista(int id = 0)
@@ -55,9 +56,25 @@ namespace ContactameYa.Controllers
         public ActionResult conFrmVerServicioVista(int id = 0)
         {
             ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+            ViewBag.lstPreguntas = PobjForoPreguntas.mtdListarPreguntasServicio(id);
+            ViewBag.idUsuario = SessionHelper.GetUser();
             return View(PobjServicio.mtdObtener(id));
         }
-       
+        public ActionResult mtdPreguntar(conFOPpForoPreguntas xPobjForoPreguntas)
+        {
+            xPobjForoPreguntas.mtdGuardar();
+            return Redirect("conFrmVerServicioVista/" + xPobjForoPreguntas.SERid_servicio);
+        }
+        public ActionResult mtdResponder(conFOPpForoPreguntas xPobjForoPreguntas)
+        {
+            string respuesta = xPobjForoPreguntas.FOPrespuesta;
+            DateTime fecha_respuesta = DateTime.Now;
+            xPobjForoPreguntas = PobjForoPreguntas.mtdObtener(xPobjForoPreguntas.FOPid_foroPregunta);
+            xPobjForoPreguntas.FOPrespuesta = respuesta;
+            xPobjForoPreguntas.FOPfecha_respuesta = fecha_respuesta;
+            xPobjForoPreguntas.mtdGuardar();
+            return Redirect("conFrmVerServicioVista/" + xPobjForoPreguntas.SERid_servicio);
+        }
         public ActionResult mtdGuardar(conSERpServicio PobjServicioModelo, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)

@@ -37,9 +37,9 @@
             <h3 class="my-0">@Model.SERnombre_servicio</h3>
             <p class="my-0">de : <a href=""> @Model.conUSUpUsuario.USUnombre @Model.conUSUpUsuario.USUapellido</a>   </p>
             <div class='starrr'></div>
-          
+
             <!-- modal a href-->
-            <a href=# data-toggle=modal data-target=#exampleModalCenter>@Model.conCALpCalificacion.Count Comentarios</a>
+            <a href=# data-toggle=modal data-target=#exampleModalCenter>@Model.conCALpCalificacion.Count Estrellas</a>
 
             <p>
                 @Model.SERdescripcion_servicio
@@ -54,8 +54,9 @@
         </div>
 
     </div>
-    <p>Ultimas Preguntas</p>
-
+    <br />
+    <h3>Ultimas Preguntas</h3>
+    <hr />
     <div class="row">
         @if (Model.conCALpCalificacion.Count > 0)
         {
@@ -66,12 +67,77 @@
         }
         else
         {
-            <div>
-                <p>Este Servicio no cuenta con preguntas</p>
-            </div>
+            @*<div>
+                    <p>Este Servicio no cuenta con preguntas</p>
+                </div>*@
         }
-
+        <div class="col">
+            @if (ViewBag.lstPreguntas != null)
+            {
+                foreach (var item in ViewBag.lstPreguntas)
+                {
+                    <div class="row">
+                        <div class="col-sm-1">
+                            P
+                        </div>
+                        <div class="col-sm-11">
+                            <p style="color:black">
+                                @item.FOPpregunta
+                                @if (Model.USUid_usuario == ViewBag.idUsuario && string.IsNullOrEmpty(item.FOPrespuesta))
+                                {
+                                    <a href="javascript:void(0)" class="btn btn-outline-warning" onclick="Responder(@item.FOPid_foroPregunta);">Responder</a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    if (!string.IsNullOrEmpty(item.FOPrespuesta))
+                    {
+                        <div class="row">
+                            <div class="col-sm-1">
+                                R
+                            </div>
+                            <div class="col-sm-11">
+                                <p style="color:gray">@item.FOPrespuesta @item.FOPfecha_respuesta</p>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
     </div>
+    <div class="row" id="divRespuesta" style="display:none;">
+        <div class="col">
+            @using (Html.BeginForm("mtdResponder", "conClsServicio", FormMethod.Post, new { @name = "frmResponder", @id = "frmResponder" }))
+            {
+                <input type="hidden" id="FOPid_foroPregunta" name="FOPid_foroPregunta" value="" />
+                <br />
+                <h3>Respuesta</h3>
+                <hr />
+                <textarea id="FOPrespuesta" name="FOPrespuesta" cols="80" rows="5"></textarea>
+                <br />
+                <a href="javascript:void(0)" class="btn btn-outline-info" onclick="EnviarFormularioR();">Enviar</a>
+            }
+        </div>
+    </div>
+    @if (ViewBag.idUsuario > 0 && Model.USUid_usuario != ViewBag.idUsuario)
+    {
+        <div class="row">
+            <div class="col">
+                @using (Html.BeginForm("mtdPreguntar", "conClsServicio", FormMethod.Post, new { @name = "frmPreguntar", @id = "frmPreguntar" }))
+                {
+                    <input type="hidden" id="FOPid_foroPregunta" name="FOPid_foroPregunta" value="" />
+                    <input type="hidden" id="SERid_servicio" name="SERid_servicio" value="@Model.SERid_servicio" />
+                    <input type="hidden" id="USUid_usuario" name="USUid_usuario" value="@ViewBag.idUsuario" />
+                    <br />
+                    <h3>Nueva Pregunta</h3>
+                    <hr />
+                    <textarea id="FOPpregunta" name="FOPpregunta" cols="80" rows="5"></textarea>
+                    <br />
+                    <a href="javascript:void(0)" class="btn btn-outline-info" onclick="EnviarFormulario();">Enviar</a>
+                }
+            </div>
+        </div>
+    }
 
     <h3 class="my-4">Related Projects</h3>
 
@@ -148,7 +214,8 @@
                             @Html.Partial("_Calificacion", i)
                         }
                     }
-                    else {
+                    else
+                    {
                         <div>
                             <p>Este Servicio no cuenta con opiniones</p>
                         </div>
@@ -157,16 +224,37 @@
 
                 </div>
                 @*<div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>*@
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>*@
             </div>
         </div>
     </div>
-
+</div>
 @section scripts {
    
     <script>
+        function Responder(id) {
+            var x = document.getElementById("divRespuesta");
+            x.style.display = "block";
+            document.getElementById("FOPid_foroPregunta").value = id;
+        };
+        function EnviarFormulario() {
+            var x = document.forms["frmPreguntar"]["FOPpregunta"].value;
+            if (x == "") {
+                alert("Pregunta must be filled out");
+                return false;
+            }
+            document.getElementById("frmPreguntar").submit();
+        };
+        function EnviarFormularioR() {
+            var x = document.forms["frmResponder"]["FOPrespuesta"].value;
+            if (x == "") {
+                alert("Respuesta must be filled out");
+                return false;
+            }
+            document.getElementById("frmResponder").submit();
+        };
         $(document).ready(function () {           
             $('.star_modal').starrr({
                 rating:  @RatingAverage,
@@ -183,7 +271,7 @@
                 readOnly:true
             });
 
-        }); 
+        });
     </script>
 }
 
