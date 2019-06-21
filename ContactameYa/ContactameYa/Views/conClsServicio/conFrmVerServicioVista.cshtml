@@ -38,24 +38,37 @@
             <div class='starrr'></div>
 
             <!-- modal a href-->
-            <a href=# data-toggle=modal data-target=#exampleModalCenter>@Model.conCALpCalificacion.Count Calificaciones</a>
+            <a href=# data-toggle=modal data-target=#exampleModalCenter>@Model.conCALpCalificacion.Count Estrellas</a>
 
             <p>
                 @Model.SERdescripcion_servicio
             </p>
-            
+
             <p>
                 Precio: S/. @Model.SERprecio
             </p>
-            <a href="@Url.Action("conFrmPedidoResumenVista","conClsPedidoServicio", new { id = Model.SERid_servicio})" class="btn btn-success" >Solicitar</a>
-                        
+            <a href="@Url.Action("conFrmPedidoResumenVista","conClsPedidoServicio", new { id = Model.SERid_servicio})" class="btn btn-success">Solicitar</a>
+
         </div>
 
     </div>
     <br />
     <h3>Ultimas Preguntas</h3>
     <hr />
-    <div class="row">       
+    <div class="row">
+        @if (Model.conCALpCalificacion.Count > 0)
+        {
+            foreach (var i in Model.conCALpCalificacion)
+            {
+                @Html.Partial("_Calificacion", i)
+            }
+        }
+        else
+        {
+            @*<div>
+                    <p>Este Servicio no cuenta con preguntas</p>
+                </div>*@
+        }
         <div class="col">
             @if (ViewBag.lstPreguntas != null)
             {
@@ -63,10 +76,7 @@
                 {
                     <div class="row">
                         <div class="col-sm-1">
-                            <div class="preguntas_icon">
-                                <svg viewBox="0 0 18 18" id="ui-icon--question" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><g stroke="#333" stroke-width="1.5" fill="none" fill-rule="evenodd"><path d="M4.429 16.514c0 .553.354.735.797.402l3.724-2.8h6.562c.822 0 1.488-.758 1.488-1.693v-9.73C17 1.757 16.334 1 15.512 1H2.488C1.666 1 1 1.758 1 2.692v10.43c0 .548.448.993.992.993h2.437v2.399z"></path><path d="M5 6h8" stroke-linecap="round"></path></g></svg>
-                            </div>
-                            
+                            P
                         </div>
                         <div class="col-sm-11">
                             <p style="color:black">
@@ -82,13 +92,10 @@
                     {
                         <div class="row">
                             <div class="col-sm-1">
-                                <div class="preguntas_icon">
-                                    <svg viewBox="0 0 18 18" id="ui-icon--answer" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><g stroke="#333" stroke-width="1.5" fill="none" fill-rule="evenodd"><path d="M13.571 16.514c0 .553-.354.735-.797.402l-3.724-2.8H2.488c-.822 0-1.488-.758-1.488-1.693v-9.73C1 1.757 1.666 1 2.488 1h13.024C16.334 1 17 1.758 17 2.692v10.43a.995.995 0 0 1-.992.993h-2.437v2.399z"></path><path d="M5 6h8M5 9h4.356" stroke-linecap="round"></path></g></svg>
-                                </div>
+                                R
                             </div>
                             <div class="col-sm-11">
-                                <p style="color:gray">@item.FOPrespuesta <span class="small">@item.FOPfecha_respuesta.ToString("dd/MM/yyyy")</span> </p>
-                                
+                                <p style="color:gray">@item.FOPrespuesta<br />@item.FOPfecha_respuesta</p>
                             </div>
                         </div>
                     }
@@ -130,7 +137,7 @@
         </div>
     }
 
-    @*<h3 class="my-4">Related Projects</h3>
+    <h3 class="my-4">Related Projects</h3>
 
     <div class="row">
 
@@ -158,7 +165,7 @@
             </a>
         </div>
 
-    </div>*@
+    </div>
 
 
     <!-- Modal para las calificaciones de los usuarios -->
@@ -181,31 +188,17 @@
                             <span>Promedio entre @Model.conCALpCalificacion.Count opiniones</span>
                         </div>
                         <div class="col-6">
-
-                            @for (int i = 0; i < estrellas_cal.Length; i++)
+                            @*@for (int i = 0; i < estrellas_cal.Length; i++)
                             {
-                            <div>
-                                <span class="text-muted">@estrellas_cal[i] Estrellas</span>
-                                <span class="text-muted float-right">@calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault()</span>
+                                <div>
+                                    <span class="text-muted">@estrellas_cal[i] Estrellas</span>
+                                    <span class="text-muted float-right">@calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault()</span>
 
-                                @if (calficaciones.Count() > 0)
-                                {
                                     <div class="progress md-progress" style="height: 4px;">
                                         <div class="progress-bar" style="width:@(Math.Round( (Decimal) calficaciones.Where(x => x.cal_number == estrellas_cal[i]).Select(x => x.cal_count).SingleOrDefault() / (Decimal)calficaciones.Count() * 100,0))% "></div>
                                     </div>
-
-                                }
-                                else
-                                {
-                                    <div class="progress md-progress" style="height: 4px;">
-                                        <div class="progress-bar" style="width:0% "></div>
-                                    </div>
-
-                                }
-
-
-                            </div>
-                            }
+                                </div>
+                            }*@
                         </div>
                     </div>
                     @if (Model.conCALpCalificacion.Count > 0)
