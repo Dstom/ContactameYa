@@ -54,9 +54,7 @@ namespace ContactameYa.Controllers
         }
 
         public ActionResult mtdRegistrarUsuario(conUSUpUsuario xGobjUsuarioModelo)
-        {
-            /*xGobjUsuarioModelo.USUlatitud = decimal.Parse(xGobjUsuarioModelo.USUlatitud.ToString().Replace(".", ","));
-            xGobjUsuarioModelo.USUlongitud = decimal.Parse(xGobjUsuarioModelo.USUlongitud.ToString().Replace(".", ","));*/
+        {          
 
             if (ModelState.IsValid)
             {
@@ -68,7 +66,7 @@ namespace ContactameYa.Controllers
                 ViewBag.lstDepartamentos = PobjDepartamento.mtdListar();
                 return View("conFrmRegistrarUsuario", xGobjUsuarioModelo);
             }
-            return Redirect("");
+            return Redirect("~/conClsServicio/conFrmListarServiciosVista");
         }
     }
 }

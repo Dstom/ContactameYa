@@ -55,7 +55,7 @@ namespace ContactameYa.Controllers
             LobjCotizacionRespuesta.COTid_cotizacion = id;
             LobjCotizacionRespuesta.USUid_usuario = SessionHelper.GetUser();
 
-            ViewBag.GobjCotizacion = PobjCotizacion.mtdObtener(id);
+            ViewBag.GobjCotizacion = PobjCotizacion.mtdObtenerCotizacion(id);
             //devolvemos la vista con el objeto CTR creado
             return View(LobjCotizacionRespuesta);
         }
@@ -70,7 +70,7 @@ namespace ContactameYa.Controllers
             else
             {
                 ViewBag.lstDepartamentos = mtdCargarDepartamentos();
-                ViewBag.GobjCotizacion = (PobjCotizacion.mtdObtener(PobjCotizacionRespuestaModelo.COTid_cotizacion));
+                ViewBag.GobjCotizacion = (PobjCotizacion.mtdObtenerCotizacion(PobjCotizacionRespuestaModelo.COTid_cotizacion));
                 return View("conFrmResponderCotizacionVista", PobjCotizacionRespuestaModelo);
             }
             return Redirect("~/conClsCotizacion/conFrmCotizacionesVista");

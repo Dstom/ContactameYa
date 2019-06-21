@@ -101,6 +101,7 @@ namespace ContactameYa.Models
                 using (var db = new conModelo())
                 {
                     cotizacion = db.conCOTpCotizacion
+                        .Include("conUSUpUsuario")
                         .Include("conCTRpCotizacionRespuesta")
                         .Where(x => x.COTid_cotizacion == ixGintIdCotizaciond)
                         .SingleOrDefault();
