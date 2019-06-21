@@ -29,10 +29,12 @@ namespace ContactameYa.Models
         [StringLength(150)]
         public string CTRdescripcion { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
         [Display(Name = "Fecha Inicio")]
         [Column(TypeName = "date")]
         public DateTime CTRfecha_inicio { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
         [Display(Name = "Fecha Entrega")]
         [Column(TypeName = "date")]
         public DateTime CTRfecha_entrega { get; set; }

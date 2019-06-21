@@ -74,7 +74,7 @@ namespace ContactameYa.Models
                 //conexion con la fuente de datos
                 using (var db = new conModelo())
                 {
-                    servicios = db.conSERpServicio.Include("conCATtCategoria").ToList();
+                    servicios = db.conSERpServicio.Include("conCATtCategoria").Where(x=>x.SERestado.Equals("A")).ToList();
                 }
             }
             catch (Exception ex)

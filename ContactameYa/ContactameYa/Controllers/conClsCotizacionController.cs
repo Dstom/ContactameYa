@@ -26,12 +26,24 @@ namespace ContactameYa.Controllers
         //vista ver cotizacion con respuestas
         public ActionResult conFrmVerCotizacion(int id) //xGintIdCotizacion
         {
-            return View();
+            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+
+            return View(PobjCotizacion.mtdObtenerCotizacion(id));
         }
-        //vista para listar las cotizaciones pendientes
+        //vista para listar MIS cotizaciones
+        public ActionResult conFrmMisCotizacionesVista()
+        {
+            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+            return View(PobjCotizacion.mtdListarMisCotizaciones(SessionHelper.GetUser()));
+        }
+
+        //vista para ver todas las cotizaciones pendientes
+
         public ActionResult conFrmCotizacionesVista()
         {
-            return View();
+            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+
+            return View(PobjCotizacion.mtdListarCotizaciones());
         }
 
         //vista para responder una cotizacion
@@ -39,9 +51,10 @@ namespace ContactameYa.Controllers
         {
             ViewBag.lstDepartamentos = mtdCargarDepartamentos();
             conCTRpCotizacionRespuesta LobjCotizacionRespuesta = new conCTRpCotizacionRespuesta();
-            //asigamos el ID cotizacion al objeto  cotizacion respuesta
+            //asigamos el ID cotizacion y ID usuario
             LobjCotizacionRespuesta.COTid_cotizacion = id;
-            //Obtenemos el objeto cotizacion por su ID
+            LobjCotizacionRespuesta.USUid_usuario = SessionHelper.GetUser();
+
             ViewBag.GobjCotizacion = PobjCotizacion.mtdObtener(id);
             //devolvemos la vista con el objeto CTR creado
             return View(LobjCotizacionRespuesta);
@@ -60,7 +73,7 @@ namespace ContactameYa.Controllers
                 ViewBag.GobjCotizacion = (PobjCotizacion.mtdObtener(PobjCotizacionRespuestaModelo.COTid_cotizacion));
                 return View("conFrmResponderCotizacionVista", PobjCotizacionRespuestaModelo);
             }
-            return Redirect("~/conClsCotizacion/Home");
+            return Redirect("~/conClsCotizacion/conFrmCotizacionesVista");
 
         }
 

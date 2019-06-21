@@ -4,75 +4,77 @@
 }
 @using (Html.BeginForm("mtdRegistrarUsuario", "conClsSeguridad", FormMethod.Post))
 {
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Completa tus Datos</h4>
-            <hr />
-            @Html.HiddenFor(model => model.USUid_usuario)
-            @Html.HiddenFor(model => model.TIUid_tipo_usuario)
-            @Html.HiddenFor(model => model.USUestado)
+<div class="row">
+    <div class="col-md-6">
+        <h4>Completa tus Datos</h4>
+        <hr />
+        @Html.HiddenFor(model => model.USUid_usuario)
+        @Html.HiddenFor(model => model.TIUid_tipo_usuario)
+        @Html.HiddenFor(model => model.USUestado)
 
-            @Html.HiddenFor(model => model.USUlatitud)
-            @Html.HiddenFor(model => model.USUlongitud)
+        @Html.HiddenFor(model => model.USUlatitud)
+        @Html.HiddenFor(model => model.USUlongitud)
 
 
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group row">
-                @Html.LabelFor(model => model.USUusuario, htmlAttributes: new { @class = "col-form-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.USUusuario, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.USUusuario, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                @Html.LabelFor(model => model.USUclave, htmlAttributes: new { @class = "col-form-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.USUclave, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
-                    @Html.ValidationMessageFor(model => model.USUclave, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                @Html.LabelFor(model => model.USUnombre, htmlAttributes: new { @class = "col-form-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.USUnombre, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.USUnombre, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                @Html.LabelFor(model => model.USUapellido, htmlAttributes: new { @class = "col-form-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.USUapellido, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.USUapellido, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                @Html.LabelFor(model => model.USUtelefono, htmlAttributes: new { @class = "col-form-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.USUtelefono, new { htmlAttributes = new { @class = "form-control", @type="tel" } })
-                    @Html.ValidationMessageFor(model => model.USUtelefono, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                @Html.LabelFor(model => model.USUemail, htmlAttributes: new { @class = "col-form-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.USUemail, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
-                    @Html.ValidationMessageFor(model => model.USUemail, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Registrarse" class="btn btn-outline-success" />
-                </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.USUusuario, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUusuario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.USUusuario, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <div class="form-group row">
+            @Html.LabelFor(model => model.USUclave, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUclave, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.USUclave, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.USUnombre, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUnombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.USUnombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.USUapellido, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUapellido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.USUapellido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.USUtelefono, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUtelefono, new { htmlAttributes = new { @class = "form-control", @type = "tel" } })
+                @Html.ValidationMessageFor(model => model.USUtelefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.USUemail, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUemail, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+                @Html.ValidationMessageFor(model => model.USUemail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Registrarse" class="btn btn-outline-success" />
+            </div>
+        </div>
+    </div>
+
+    @if (Model.TIUid_tipo_usuario == 2)
+    {
         <div class="col-md-6">
             <h4>Selecciona tu Dirección</h4>
             <hr />
@@ -87,7 +89,10 @@
 
         </div>
 
-    </div>
+    }
+
+
+</div>
 }
 @section scripts {
     <script>

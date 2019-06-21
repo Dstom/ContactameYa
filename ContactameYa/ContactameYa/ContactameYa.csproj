@@ -220,6 +220,9 @@
     <Content Include="Views\conClsServicio\conFrmVerServicioVista.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Shared\_Calificacion.cshtml" />
+    <Content Include="Views\conClsCotizacion\conFrmMisCotizacionesVista.cshtml" />
+    <Content Include="Views\conClsCotizacion\conFrmCotizacionesVista.cshtml" />
+    <Content Include="Views\conClsCotizacion\conFrmVerCotizacion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

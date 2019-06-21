@@ -37,9 +37,11 @@ namespace ContactameYa.Models
         [StringLength(150)]
         public string COTdescripcion { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
         [Column(TypeName = "date")]
         public DateTime COTfecha_publicacion { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
         [Display(Name = "Fecha de Entrega")]
         [Column(TypeName = "date")]
         public DateTime COTfecha_limiteEntrega { get; set; }
@@ -50,7 +52,7 @@ namespace ContactameYa.Models
         public virtual ICollection<conCTRpCotizacionRespuesta> conCTRpCotizacionRespuesta { get; set; }
 
 
-        public List<conCOTpCotizacion> mtdListar() //retornar un collection
+        public List<conCOTpCotizacion> mtdListarCotizaciones() //retornar un collection
         {
             var cotizaciones = new List<conCOTpCotizacion>();
 
@@ -69,16 +71,37 @@ namespace ContactameYa.Models
             return cotizaciones;
         }
 
+        public List<conCOTpCotizacion> mtdListarMisCotizaciones(int xGintIdUsuario) //retornar un collection
+        {
+            var cotizaciones = new List<conCOTpCotizacion>();
+
+            try
+            {
+                //conexion con la fuente de datos
+                using (var db = new conModelo())
+                {
+                    cotizaciones = db.conCOTpCotizacion
+                        .Where(x=>x.USUid_usuario == xGintIdUsuario).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return cotizaciones;
+        }
+
 
         //metodo Obtener
-        public conCOTpCotizacion mtdObtener(int ixGintIdCotizaciond) //retorna un objeto
+        public conCOTpCotizacion mtdObtenerCotizacion(int ixGintIdCotizaciond) //retorna un objeto
         {
             var cotizacion = new conCOTpCotizacion();
             try
             {
                 using (var db = new conModelo())
                 {
-                    cotizacion = db.conCOTpCotizacion.Include("conUSUpUsuario")
+                    cotizacion = db.conCOTpCotizacion
+                        .Include("conCTRpCotizacionRespuesta")
                         .Where(x => x.COTid_cotizacion == ixGintIdCotizaciond)
                         .SingleOrDefault();
                 }
