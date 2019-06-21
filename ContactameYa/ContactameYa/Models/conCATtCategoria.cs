@@ -47,7 +47,7 @@ namespace ContactameYa.Models
                     catServicios = db.conCATtCategoria.ToList();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

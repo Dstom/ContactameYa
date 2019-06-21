@@ -54,14 +54,18 @@ namespace ContactameYa.Controllers
         }
 
         public ActionResult mtdRegistrarUsuario(conUSUpUsuario xGobjUsuarioModelo)
-        {          
-
-            if (ModelState.IsValid)
+        {
+            if (Request.Form["USUlatitud"].Contains(',') && Request.Form["USUlongitud"].Contains(','))
+            {
+                xGobjUsuarioModelo.USUlatitud = Convert.ToDecimal(Request.Form["USUlatitud"].Replace(',', '.'));
+                xGobjUsuarioModelo.USUlongitud = Convert.ToDecimal(Request.Form["USUlongitud"].Replace(',', '.'));
+            }
+            try
             {
                 xGobjUsuarioModelo.USUclave = HashHelper.SHA1(xGobjUsuarioModelo.USUclave);
                 xGobjUsuarioModelo.mtdGuardar();
             }
-            else
+            catch(Exception)
             {
                 ViewBag.lstDepartamentos = PobjDepartamento.mtdListar();
                 return View("conFrmRegistrarUsuario", xGobjUsuarioModelo);
