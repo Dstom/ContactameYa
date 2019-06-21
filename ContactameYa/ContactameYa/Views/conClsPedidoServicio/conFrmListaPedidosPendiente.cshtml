@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ContactameYa.Models.conPDSpPedidoServicio>
+@{
+    ViewBag.Title = "Pedidos pendientes de Calificacion";
+}
+@*<div class="contenedor">
+        <p> <h3>Informacion del Pedido</h3></p>
+        <p> <span class="text-muted"> N° de Pedido: <a href="">@</a></span></p>
+    </div>*@
+
+
+<div class="row">
+    @Html.Partial("_LeftBar")
+    <div class="col-md-9">
+        <h3>Pedidos </h3>
+
+        <hr />
+
+        <table id="" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Informacion del Pedido
+                    </th>
+                    <th>
+                        Proveedor
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-muted">
+                            <p class="my-1">
+                                N° pedido: @item.PDSid_pedidoServicio
+                            </p>
+                            <p class="my-1">
+                                Fecha inicio: @item.PDSfecha_inicio.ToString("d MMMM, yyyy")
+                            </p>
+                            <p class="my-1">
+                                Fecha Entrega: @item.PDSfecha_entrega.ToString("d MMMM, yyyy")
+                            </p>
+                        </td>    
+                        <td>
+                            <span>@item.conSERpServicio.conUSUpUsuario.USUnombre @item.conSERpServicio.conUSUpUsuario.USUapellido </span>
+
+                        </td>
+                        <td>
+                            @switch (item.PDSestado)
+                            {
+                                case "T":
+                                    <span class="text-success class="my-1"">Finalizado</span>
+                                    break;
+                            }                           
+                        </td>
+                        <td>
+
+                            <a href=" @Url.Action("conFrmDejarCalificacion", "conClsPedidoServicio", new { id = item.PDSid_pedidoServicio })" class="btn btn-outline-secondary btn-sm"> Dejar Calificacion </a>
+                           
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+

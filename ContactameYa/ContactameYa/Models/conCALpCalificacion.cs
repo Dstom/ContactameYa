@@ -6,6 +6,13 @@ namespace ContactameYa.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    using System.Linq;
+    using System.Data.Entity;
+
+    using System.Data.Entity.Validation;
+    using System.Web;
+    using System.IO;
+
     [Table("conCALpCalificacion")]
     public partial class conCALpCalificacion
     {
@@ -26,5 +33,29 @@ namespace ContactameYa.Models
         public virtual conUSUpUsuario conUSUpUsuario { get; set; }
 
         public virtual conSERpServicio conSERpServicio { get; set; }
+
+        public void mtdGuardar()
+        {
+            try
+            {
+                using (var db = new conModelo())
+                {
+                    if (this.CALid_calificacion > 0)
+                    {
+
+                        db.Entry(this).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        db.Entry(this).State = EntityState.Added;
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

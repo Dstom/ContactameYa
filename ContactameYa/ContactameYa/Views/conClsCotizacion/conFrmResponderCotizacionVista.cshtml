@@ -1,58 +1,39 @@
 ﻿@model ContactameYa.Models.conCTRpCotizacionRespuesta
 
 @{
-    ViewBag.Title = "conFrmResponderCotizacionVista";
-    //objeto cotizacion
-    ContactameYa.Models.conCOTpCotizacion LobjCotizacion = ViewBag.GobjCotizacion;
+                /**/
+
+                ViewBag.Title = "conFrmResponderCotizacionVista";
+                //objeto cotizacion
+                ContactameYa.Models.conCOTpCotizacion LobjCotizacion = ViewBag.GobjCotizacion;
 }
 
 <h2>Responder Cotizacion</h2>
+<hr />
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayName("Solicitante")
-        </dt>
-        <dd>
-            @LobjCotizacion.conUSUpUsuario.USUnombre @LobjCotizacion.conUSUpUsuario.USUapellido
-        </dd>
 
-        <dt>
-            @Html.DisplayName("Titulo de Cotizacion")
-        </dt>
+<h2 class="text-danger">@LobjCotizacion.COTnombre_cotizacion</h2>
 
-        <dd>
-            @LobjCotizacion.COTnombre_cotizacion
-        </dd>
+<h6 class="text-muted">
+    <span>
+        <i class="fa fa-calendar-o"></i>
+    </span>
 
-        <dt>
-            @Html.DisplayName("Descripcion")
-        </dt>
 
-        <dd>
-            @LobjCotizacion.COTdescripcion
-        </dd>
+    publicado por: @LobjCotizacion.conUSUpUsuario.USUnombre @LobjCotizacion.conUSUpUsuario.USUapellido, @LobjCotizacion.COTfecha_publicacion.ToString("d MMMM, yyyy")
+</h6>
+<h5>Fecha Limite de Entrega: <span class="text-danger small">@LobjCotizacion.COTfecha_limiteEntrega.ToString("d MMMM, yyyy")</span></h5>
 
-        <dt>
-            @Html.DisplayName("Fecha de Entrega")
-        </dt>
+<p>@LobjCotizacion.COTdescripcion</p>
 
-        <dd>
-            @LobjCotizacion.COTfecha_limiteEntrega.ToString("dd/MM/yyyy")
-        </dd>
-
-    </dl>
-</div>
-
-@using (Html.BeginForm("mtdGuardarRespuestaCotizacion", "conClsCotizacion",FormMethod.Post)) 
-{   
-    @Html.HiddenFor(model=>model.COTid_cotizacion)
+@using (Html.BeginForm("mtdGuardarRespuestaCotizacion", "conClsCotizacion", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.COTid_cotizacion)
 
     @Html.HiddenFor(model => model.USUid_usuario)
     <div class="form-horizontal">
-        <h4>Respuesta a una cotizacion</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
             @Html.LabelFor(model => model.CTRdescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
