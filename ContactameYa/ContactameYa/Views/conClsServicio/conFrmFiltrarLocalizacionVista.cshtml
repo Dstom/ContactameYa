@@ -25,7 +25,7 @@
                     </p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Ver Detalle</button>
+                            <a href="@Url.Action("conFrmVerServicioVista", "conClsServicio", new { id = item.SERid_servicio })" class="btn btn-sm btn-outline-secondary" >Ver detalle</a>
                             @*<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>*@
                         </div>
                         <strong class="text-muted">S/. @item.SERprecio</strong>
@@ -60,7 +60,10 @@
                     }
                 }
 
-                @:markers.push({ position: new google.maps.LatLng(@item.USUlatitud.ToString().Replace(",","."), @item.USUlongitud.ToString().Replace(",",".")), proveedor: '@item.USUnombre @item.USUapellido', servicios: '@Html.Raw(contenServicio)'});
+                if(item.USUlatitud != null && item.USUlongitud != null)
+                {
+                   @:markers.push({ position: new google.maps.LatLng(@item.USUlatitud.ToString().Replace(",","."), @item.USUlongitud.ToString().Replace(",",".")), proveedor: '@item.USUnombre @item.USUapellido', servicios: '@Html.Raw(contenServicio)'});
+                }
             }
             for (var i = 0; i < markers.length; i++) {
                 var marker = new google.maps.Marker({

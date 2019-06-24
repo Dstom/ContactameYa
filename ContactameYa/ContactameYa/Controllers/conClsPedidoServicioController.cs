@@ -28,16 +28,24 @@ namespace ContactameYa.Controllers
 
             ViewBag.lstDepartamentos = mtdCargarDepartamentos();
 
-            conPDSpPedidoServicio LobjPedidoServicio = new conPDSpPedidoServicio();
-            LobjPedidoServicio.SERid_servicio = id;
-            LobjPedidoServicio.USUid_usuario = SessionHelper.GetUser();
-            LobjPedidoServicio.PDSestado = "E";
+            if(SessionHelper.GetUser() > 0 )
+            {
+                conPDSpPedidoServicio LobjPedidoServicio = new conPDSpPedidoServicio();
+                LobjPedidoServicio.SERid_servicio = id;
+                LobjPedidoServicio.USUid_usuario = SessionHelper.GetUser();
+                LobjPedidoServicio.PDSestado = "E";
 
-            ViewBag.GobjServicio = PobjServicio.mtdObtener(id);
+                ViewBag.GobjServicio = PobjServicio.mtdObtener(id);
 
-            ViewBag.GintIdServicio = id;
+                ViewBag.GintIdServicio = id;
+                return View(LobjPedidoServicio);
+            }
+            else
+            {
+                return Json("Debe estar Logeado para realizar esta acción", JsonRequestBehavior.AllowGet);
+            }
 
-            return View(LobjPedidoServicio);
+            
         }
 
         public ActionResult mtdGuardarPedidoServicio(conPDSpPedidoServicio xLobjPedidoServicio)

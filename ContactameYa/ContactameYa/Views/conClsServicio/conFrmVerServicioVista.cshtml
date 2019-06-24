@@ -43,12 +43,10 @@
             <p>
                 @Model.SERdescripcion_servicio
             </p>
-            
             <p>
                 Precio: S/. @Model.SERprecio
             </p>
-            <a href="@Url.Action("conFrmPedidoResumenVista","conClsPedidoServicio", new { id = Model.SERid_servicio})" class="btn btn-success" >Solicitar</a>
-                        
+           <a href="@Url.Action("conFrmPedidoResumenVista", "conClsPedidoServicio", new { id = Model.SERid_servicio })" class="btn btn-success" >Solicitar</a>
         </div>
 
     </div>
@@ -223,11 +221,7 @@
                     }
 
 
-                </div>
-                @*<div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>*@
+                </div>               
             </div>
         </div>
     </div>
@@ -271,8 +265,7 @@
                 rating: 4,
                 readOnly:true
             });
-
         }); 
-    </script>
+    </script>    
 }
 
