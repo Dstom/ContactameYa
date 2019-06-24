@@ -39,7 +39,7 @@ namespace ContactameYa.Models
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Contraseña")]
+        [Display(Name = "Contraseï¿½a")]
         public string USUclave { get; set; }
 
         [Required]
@@ -58,7 +58,7 @@ namespace ContactameYa.Models
         public string USUemail { get; set; }
 
         [StringLength(250)]
-        [Display(Name = "Dirección")]
+        [Display(Name = "Direcciï¿½n")]
         public string USUdireccion { get; set; }
 
         [StringLength(9)]
@@ -165,18 +165,18 @@ namespace ContactameYa.Models
 
 
 
-        public ResponseModel mtdSeguridad(string xGstrUsuario, string xGstrContraseña)
+        public ResponseModel mtdSeguridad(string xGstrUsuario, string xGstrContrasena)
         {
             var rm = new ResponseModel();
             try
             {
                 using (var db = new conModelo())
                 {
-                    var contraseñaSHA = HashHelper.SHA1(xGstrContraseña);
+                    var contrasenaSHA = HashHelper.SHA1(xGstrContrasena);
 
                     var usuario = db.conUSUpUsuario
                         .Where(x => x.USUusuario.Equals(xGstrUsuario) &&
-                                x.USUclave.Equals(contraseñaSHA)).SingleOrDefault();
+                                x.USUclave.Equals(contrasenaSHA)).SingleOrDefault();
 
                     if (usuario != null)
                     {
@@ -192,7 +192,7 @@ namespace ContactameYa.Models
                     }
                     else
                     {
-                        rm.SetResponse(false, "Usuario o Contraseña incorrectos.");
+                        rm.SetResponse(false, "Usuario o Contraseï¿½a incorrectos.");
                     }
                 }
             }

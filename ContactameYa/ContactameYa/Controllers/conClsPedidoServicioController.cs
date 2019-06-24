@@ -23,10 +23,44 @@ namespace ContactameYa.Controllers
         private conCALpCalificacion PobjCalificacion = new conCALpCalificacion();
 
 
-        public ActionResult conFrmPedidoResumenVista()
+        public ActionResult conFrmPedidoResumenVista(int id) //xGintIdServicio
         {
-            return View();
+
+            ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+
+            conPDSpPedidoServicio LobjPedidoServicio = new conPDSpPedidoServicio();
+            LobjPedidoServicio.SERid_servicio = id;
+            LobjPedidoServicio.USUid_usuario = SessionHelper.GetUser();
+            LobjPedidoServicio.PDSestado = "E";
+
+            ViewBag.GobjServicio = PobjServicio.mtdObtener(id);
+
+            ViewBag.GintIdServicio = id;
+
+            return View(LobjPedidoServicio);
         }
+
+        public ActionResult mtdGuardarPedidoServicio(conPDSpPedidoServicio xLobjPedidoServicio)
+        {
+            if(ModelState.IsValid)
+            {
+                xLobjPedidoServicio.mtdGuardar();
+
+            }
+            else
+            {
+                ViewBag.lstDepartamentos = mtdCargarDepartamentos();
+
+                ViewBag.GintIdServicio = int.Parse(Request.Form["GintIdServicio"]);
+                ViewBag.GobjServicio = PobjServicio.mtdObtener(int.Parse(Request.Form["GintIdServicio"]));
+
+
+                return View("conFrmPedidoResumenVista", xLobjPedidoServicio);
+
+            }
+            return Redirect("~/conClsServicio/conFrmListarServiciosVista");
+        }
+
 
         //Lista de Pedidos pendientes de Calificacion
         public ActionResult conFrmListaPedidosPendiente()

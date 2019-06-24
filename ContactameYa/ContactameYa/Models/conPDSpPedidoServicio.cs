@@ -14,7 +14,7 @@
     using System.IO;
 
     [Table("conPDSpPedidoServicio")]
-    public partial class conPDSpPedidoServicio
+    public partial class conPDSpPedidoServicio : IValidatableObject
     {
         [Key]
         public int PDSid_pedidoServicio { get; set; }
@@ -40,6 +40,25 @@
         public virtual conSERpServicio conSERpServicio { get; set; }
 
         public virtual conUSUpUsuario conUSUpUsuario { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (PDSfecha_entrega < PDSfecha_inicio)
+            {
+                yield return new ValidationResult("La fecha de entrega no puede ser menor a la fecha de inicio", new List<string> { "PDSfecha_entrega" });
+            }
+
+            if (PDSfecha_entrega < DateTime.Now)
+            {
+                yield return new ValidationResult("La fecha de entrega no puede ser menor a la fecha actual", new List<string> { "PDSfecha_entrega" });
+            }
+            if (PDSfecha_inicio < DateTime.Now)
+            {
+                yield return new ValidationResult("La fecha de inicio no puede ser menor a la fecha actual", new List<string> { "PDSfecha_inicio" });
+            }
+
+        }
+
 
         public List<conPDSpPedidoServicio> mtdListarPedidosPendienteCalificacion(int xGintIdUsuario)
         {

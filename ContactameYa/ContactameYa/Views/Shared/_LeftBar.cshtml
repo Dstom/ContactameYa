@@ -4,13 +4,24 @@
         <div class="list-group">
             <a class="list-group-item list-group-item-action @Html.IsActive("conClsPedidoServicio", "conFrmListaPedidosPendiente")"
                href="@Url.Action("conFrmListaPedidosPendiente", "conClsPedidoServicio")">Pendientes de Valoracion</a>
-
-            <a class=" list-group-item list-group-item-action @Html.IsActive("conClsServicio", "conFrmMisServiciosVista")"
-               href="@Url.Action("conFrmMisServiciosVista", "conClsServicio")">Mis Servicios</a>
             <a class="list-group-item list-group-item-action @Html.IsActive("conClsCotizacion", "conFrmMisCotizacionesVista")"
                href="@Url.Action("conFrmMisCotizacionesVista", "conClsCotizacion")">Mis Cotizaciones</a>
-            <a class="list-group-item list-group-item-action @Html.IsActive("conClsPedidoServicio", "conFrmControlarPedidosVista")"
-               href="@Url.Action("conFrmControlarPedidosVista", "conClsPedidoServicio")">Controlar Servicios</a>
+
+            @if (ContactameYa.Models.SessionHelper.GetUser() > 0)
+            {
+                //usuario logeado
+                ContactameYa.Models.conUSUpUsuario LobjUsuarioLogeado = new ContactameYa.Models.conUSUpUsuario().mtdObtener(ContactameYa.Models.SessionHelper.GetUser());
+
+                if (LobjUsuarioLogeado.TIUid_tipo_usuario == 2)
+                {
+                    <a class=" list-group-item list-group-item-action @Html.IsActive("conClsServicio", "conFrmMisServiciosVista")"
+                       href="@Url.Action("conFrmMisServiciosVista", "conClsServicio")">Mis Servicios</a>
+                    <a class="list-group-item list-group-item-action @Html.IsActive("conClsPedidoServicio", "conFrmControlarPedidosVista")"
+                       href="@Url.Action("conFrmControlarPedidosVista", "conClsPedidoServicio")">Controlar Servicios</a>
+                }
+
+            }
+
 
 
         </div>

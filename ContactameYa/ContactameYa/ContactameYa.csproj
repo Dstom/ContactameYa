@@ -225,6 +225,7 @@
     <Content Include="Views\conClsCotizacion\conFrmCotizacionesVista.cshtml" />
     <Content Include="Views\conClsCotizacion\conFrmVerCotizacion.cshtml" />
     <Content Include="Views\conClsUsuario\conFrmModificarPerfilVista.cshtml" />
+    <Content Include="Views\conClsPedidoServicio\conFrmPedidoResumenVista.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

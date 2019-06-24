@@ -1,0 +1,72 @@
+﻿@model ContactameYa.Models.conPDSpPedidoServicio
+@{
+    ViewBag.Title = "Pedido Resumen";
+
+    ContactameYa.Models.conSERpServicio LobjServicio = ViewBag.GobjServicio;
+    int LintIdServicio = ViewBag.GintIdServicio;
+}
+
+<h2></h2>
+
+<div class="contenedor">
+    <p>
+        <h3>Resumen del Pedido</h3>
+    </p>
+
+    <p>
+        <span class="text-muted mr-3">
+            Servicio: <a href="#"> @LobjServicio.SERid_servicio  </a>
+        </span>
+
+        <span class="text-muted mr-3">
+            Nombre del Servicio: <span class="font-weight-bold">@LobjServicio.SERnombre_servicio</span>
+        </span>
+        <span class="text-muted mr-3">
+            Precio: <span class="font-weight-bold"> @LobjServicio.SERprecio</span>
+        </span>
+
+        <span class="text-muted">
+            Proveedor: <a href="#">@LobjServicio.conUSUpUsuario.USUnombre @LobjServicio.conUSUpUsuario.USUapellido</a>
+        </span>
+
+    </p>
+
+</div>
+
+@using (Html.BeginForm("mtdGuardarPedidoServicio", "conClsPedidoServicio", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.PDSid_pedidoServicio)
+    @Html.HiddenFor(model => model.USUid_usuario)
+    @Html.HiddenFor(model => model.SERid_servicio)
+    @Html.HiddenFor(model => model.PDSestado)
+
+
+    @Html.Hidden("GintIdServicio", LintIdServicio)
+
+    <div class="contenedor">
+        <h4>Ingresar Fechas</h4>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PDSfecha_inicio, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.PDSfecha_inicio, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.PDSfecha_inicio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PDSfecha_entrega, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.PDSfecha_entrega, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.PDSfecha_entrega, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <input type="submit" value="Enviar" class="btn btn-warning" />
+    </div>
+
+
+}

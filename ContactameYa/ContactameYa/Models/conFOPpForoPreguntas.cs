@@ -8,7 +8,7 @@ namespace ContactameYa.Models
     using System.Data.Entity.Spatial;
     using System.Linq;
 
-    public partial class conFOPpForoPreguntas
+    public partial class conFOPpForoPreguntas 
     {
         [Key]
         public int FOPid_foroPregunta { get; set; }
