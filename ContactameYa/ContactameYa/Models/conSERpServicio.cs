@@ -41,7 +41,7 @@ namespace ContactameYa.Models
         public string SERdescripcion_servicio { get; set; }
 
         [Range(0.0, double.MaxValue, ErrorMessage = "El valor debe ser Mayor a 0")]
-        [Display(Name = "Precio")]
+        [Display(Name = "Precio (Soles)")]
         public int SERprecio { get; set; }
 
         [Display(Name = "Imagen")]

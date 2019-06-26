@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Registro de Usuarios";
 }
-@using (Html.BeginForm("mtdRegistrarUsuario", "conClsSeguridad", FormMethod.Post, new { @id="frmRegistrarUsuario", @name="frmRegistrarUsuario"}))
+@using (Html.BeginForm("mtdRegistrarUsuario", "conClsSeguridad", FormMethod.Post, new { @id = "frmRegistrarUsuario", @name = "frmRegistrarUsuario" }))
 {
     <div class="row">
         <div class="col-md-6">
@@ -14,7 +14,7 @@
 
             @Html.HiddenFor(model => model.USUlatitud)
             @Html.HiddenFor(model => model.USUlongitud)
-                       
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group row">
@@ -22,7 +22,7 @@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.USUusuario, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.USUusuario, "", new { @class = "text-danger" })
-                    @if(ViewBag.Exception != null)
+                    @if (ViewBag.Exception != null)
                     {
                         <span style="color:red;">@ViewBag.Exception</span>
                     }
@@ -184,7 +184,7 @@
                 var latitude = marker.position.lat();
                 var longitude = marker.position.lng();
 
-                $("#USUlatitud").val((latitude.toFixed(9)).replace(".",","));
+                $("#USUlatitud").val((latitude.toFixed(9)).replace(".", ","));
                 $("#USUlongitud").val(longitude.toFixed(9).replace(".", ","));
 
 
@@ -192,6 +192,7 @@
         }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_TlBUf026W9M6XdLBEjjFrsoSy1A-bkk&callback=initMap" async defer>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU8RkhrJdH61HiMTJj7yIT1-sbEX_Hlmc&callback=initMap" async defer>
+    //<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_TlBUf026W9M6XdLBEjjFrsoSy1A-bkk&callback=initMap" async defer>
     </script>
 }
