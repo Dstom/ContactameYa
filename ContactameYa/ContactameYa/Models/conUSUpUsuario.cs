@@ -39,7 +39,7 @@ namespace ContactameYa.Models
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Contrase�a")]
+        [Display(Name = "Contraseña")]
         public string USUclave { get; set; }
 
         [Required]
@@ -58,7 +58,7 @@ namespace ContactameYa.Models
         public string USUemail { get; set; }
 
         [StringLength(250)]
-        [Display(Name = "Direcci�n")]
+        [Display(Name = "Direccion")]
         public string USUdireccion { get; set; }
 
         [StringLength(9)]
@@ -108,6 +108,27 @@ namespace ContactameYa.Models
                     GobjUsuario = db.conUSUpUsuario                       
                         .Include("conTIUtTipoUsuario")
                         .Where(x=>x.USUid_usuario == xGintIdUsuario)
+                        .SingleOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return GobjUsuario;
+        }
+        public conUSUpUsuario mtdObtenerPorUsuario(string xGstrUSUusuario)
+        {
+            var GobjUsuario = new conUSUpUsuario();
+            try
+            {
+                //conexion con la fuente de datos
+                using (var db = new conModelo())
+                {
+                    //INNER JOIN EN TIPO USUARIO, SERVICIOS QUE OFRECE Y QUE ESTE ACTIVO
+                    GobjUsuario = db.conUSUpUsuario
+                        .Include("conTIUtTipoUsuario")
+                        .Where(x => x.USUusuario == xGstrUSUusuario)
                         .SingleOrDefault();
                 }
             }

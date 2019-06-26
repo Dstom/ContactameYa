@@ -46,7 +46,7 @@
                             <p class="my-1">
                                 Fecha Entrega: @item.PDSfecha_entrega.ToString("d MMMM, yyyy")
                             </p>
-                        </td>    
+                        </td>
                         <td>
                             <span>@item.conSERpServicio.conUSUpUsuario.USUnombre @item.conSERpServicio.conUSUpUsuario.USUapellido </span>
 
@@ -55,14 +55,14 @@
                             @switch (item.PDSestado)
                             {
                                 case "T":
-                                    <span class="text-success class="my-1"">Finalizado</span>
+                                    <span class="text-success class=" my-1"">Finalizado</span>
                                     break;
-                            }                           
+                            }
                         </td>
                         <td>
 
                             <a href=" @Url.Action("conFrmDejarCalificacion", "conClsPedidoServicio", new { id = item.PDSid_pedidoServicio })" class="btn btn-outline-secondary btn-sm"> Dejar Calificacion </a>
-                           
+
                         </td>
                     </tr>
                 }

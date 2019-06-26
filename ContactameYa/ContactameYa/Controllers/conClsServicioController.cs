@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using ContactameYa.Filters;
 using ContactameYa.Models;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
 
 namespace ContactameYa.Controllers
-{
+{    
     public class conClsServicioController : Controller
     {
         private conSERpServicio PobjServicio = new conSERpServicio();
@@ -84,11 +86,11 @@ namespace ContactameYa.Controllers
                 {
                     if(file != null)
                     {
-                        string fullPath = Server.MapPath("~/Uploads/" + PobjServicioModelo.SERimagenes);
-                        if (System.IO.File.Exists(fullPath))
-                        {
-                            System.IO.File.Delete(fullPath);
-                        }
+                        //string fullPath = Server.MapPath("~/Uploads/" + PobjServicioModelo.SERimagenes);
+                        //if (System.IO.File.Exists(fullPath))
+                        //{
+                        //    System.IO.File.Delete(fullPath);
+                        //}
                         PobjServicioModelo.SERimagenes = mtdSubirImagen(file);
                     }
                 }
@@ -115,10 +117,25 @@ namespace ContactameYa.Controllers
 
         public string mtdSubirImagen(HttpPostedFileBase file)
         {
-            string fileName = Path.GetFileName(file.FileName);
-            string fileLocationString = "~/Uploads";
-            string fileLocation = Path.Combine(Server.MapPath(fileLocationString), fileName);
+            //string fileName = Path.GetFileName(file.FileName);
+            //string fileLocationString = "~/Uploads/";
+            //string fileLocation = Path.Combine(Server.MapPath(fileLocationString), fileName);
+            string path = Server.MapPath("~/Uploads/");
+            string fileLocation = path + file.FileName;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             file.SaveAs(fileLocation);
+            //BlobHandler bh = new BlobHandler("contactameyara");
+            //bh.UploadSingle(file);
+
+            //var account = new CloudStorageAccount(new StorageCredentials("jhcondori@upt.pe", "QevfVJjwEogD0HbvW3qFw+U9H1b7+tomu8nj4ezXvHMLfk5Fydgm4kcowg5H/8F4o2RI0xF43CdPFq/tl/fpdA=="), true);
+            //var cloudBlobClient = account.CreateCloudBlobClient();
+            //var container = cloudBlobClient.GetContainerReference("contactameyara");
+            //var blob = container.GetBlockBlobReference(file.FileName);
+            //blob.UploadFromStream(file.InputStream);
+            //var blobUrl = blob.Uri.AbsoluteUri;
             return file.FileName;           
         }
         public object mtdListarCategoria()

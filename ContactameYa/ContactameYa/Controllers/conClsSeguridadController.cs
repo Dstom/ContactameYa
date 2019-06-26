@@ -50,7 +50,6 @@ namespace ContactameYa.Controllers
             LobjUsuario.TIUid_tipo_usuario = tipousuario;
             LobjUsuario.USUestado = "A";
             return View(LobjUsuario);
-            
         }
 
         public ActionResult mtdRegistrarUsuario(conUSUpUsuario xGobjUsuarioModelo)
@@ -63,11 +62,20 @@ namespace ContactameYa.Controllers
             try
             {
                 xGobjUsuarioModelo.USUclave = HashHelper.SHA1(xGobjUsuarioModelo.USUclave);
-                xGobjUsuarioModelo.mtdGuardar();
+                //validar usuario unico
+                if (PobjUsuario.mtdObtenerPorUsuario(xGobjUsuarioModelo.USUusuario) == null)
+                {
+                    xGobjUsuarioModelo.mtdGuardar();
+                }
+                else
+                {
+                    throw new Exception("El usuario ingresado ya existe.");
+                }
             }
-            catch(Exception)
+            catch(Exception ex)
             {
                 ViewBag.lstDepartamentos = PobjDepartamento.mtdListar();
+                ViewBag.Exception = ex.Message;
                 return View("conFrmRegistrarUsuario", xGobjUsuarioModelo);
             }
             return Redirect("~/conClsServicio/conFrmListarServiciosVista");
